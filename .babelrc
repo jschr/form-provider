@@ -1,6 +1,7 @@
 {
   "plugins": [
     "transform-class-properties",
+    ["transform-es2015-modules-commonjs", { "loose": true }],
     ["transform-es2015-template-literals", { "loose": true }],
     "transform-es2015-literals",
     "transform-es2015-function-name",

@@ -30,7 +30,7 @@ const handlers = {
   }
 }
 
-export default function formReducer (state = {}, action = {}) {
+export default function formReducer(state = {}, action = {}) {
   return handlers[action.type]
     ? handlers[action.type](state, action.payload)
     : state

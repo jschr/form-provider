@@ -1,5 +1,4 @@
 import { PureComponent, PropTypes } from 'react'
-import { isString, isArray } from 'lodash'
 import invariant from 'invariant'
 import objectPath from 'object-path'
 
@@ -16,9 +15,9 @@ export default class Field extends PureComponent {
     form: PropTypes.object
   }
 
-  isValidPath (path) {
-    invariant(isArray(path) || isString(path),
-      `Path must be an array or a string, ` +
+  isValidPath(path) {
+    invariant(typeof path === 'string' || Array.isArray(path),
+      `Path must be string or an array of strings, ` +
       `you can use the format 'a.b.c' for nested values`)
 
     invariant(!/^errors/.test(path), `Path cannot start with 'errors'`)
@@ -26,7 +25,7 @@ export default class Field extends PureComponent {
     return true
   }
 
-  makeValueHandler (path) {
+  makeValueHandler(path) {
     return (value) => {
       const { form } = this.context
 
@@ -34,7 +33,7 @@ export default class Field extends PureComponent {
     }
   }
 
-  getFormState (store) {
+  getFormState(store) {
     let state = store.getState()
 
     if (store.formReducerName) state = state[store.formReducerName]
@@ -42,7 +41,7 @@ export default class Field extends PureComponent {
     return state
   }
 
-  subscribeToPath (path) {
+  subscribeToPath(path) {
     const { form } = this.context
 
     const state = this.getFormState(form)
@@ -62,7 +61,7 @@ export default class Field extends PureComponent {
     })
   }
 
-  addValidators (path, validators = []) {
+  addValidators(path, validators = []) {
     const { form } = this.context
 
     const removeFns = [].concat(validators)
@@ -71,7 +70,7 @@ export default class Field extends PureComponent {
     this.removeValidators = () => removeFns.forEach((fn) => fn())
   }
 
-  componentWillMount () {
+  componentWillMount() {
     const { path, validate } = this.props
 
     if (this.isValidPath(path)) {
@@ -81,7 +80,7 @@ export default class Field extends PureComponent {
     }
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     const { path, validate } = this.props
 
     if (path !== nextProps.path && this.isValidPath(nextProps.path)) {
@@ -95,11 +94,11 @@ export default class Field extends PureComponent {
     }
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     if (this.unsubscribe) this.unsubscribe()
   }
 
-  render () {
+  render() {
     const { children } = this.props
     const { value, error } = this.state
 

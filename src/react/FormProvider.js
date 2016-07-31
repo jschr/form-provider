@@ -12,7 +12,7 @@ export default class FormProvider extends PureComponent {
     form: PropTypes.object
   }
 
-  getChildContext () {
+  getChildContext() {
     const { store } = this.props
 
     return {
@@ -20,17 +20,17 @@ export default class FormProvider extends PureComponent {
     }
   }
 
-  componentWillMount () {
+  componentWillMount() {
     const { store, onSubmit, submitOnValue } = this.props
 
     this.removeSubmitListener = store.addSubmitListener(onSubmit, submitOnValue)
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     if (this.removeSubmitListener) this.removeSubmitListener()
   }
 
-  render () {
+  render() {
     const { children } = this.props
 
     return Children.only(children)
