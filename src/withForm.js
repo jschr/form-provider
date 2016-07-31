@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { createStore } from 'redux'
 
-import formReducer from '../reducer'
-import formEnhancer from '../enhancer'
+import formReducer from './reducer'
+import formEnhancer from './enhancer'
 
 export default function withForm(initialState, reducer = formReducer, enhancer = formEnhancer()) {
   return (BaseComponent) => {

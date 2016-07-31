@@ -2,7 +2,7 @@ import { PureComponent, PropTypes } from 'react'
 import invariant from 'invariant'
 import objectPath from 'object-path'
 
-import * as actions from '../actions'
+import * as actions from './actions'
 
 export default class Field extends PureComponent {
   static propTypes = {

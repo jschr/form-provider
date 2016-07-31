@@ -1,5 +1,5 @@
 import React from 'react'
-import { withForm, FormProvider, Field } from 'redux-local-form/lib/react'
+import { withForm, FormProvider, Field } from 'redux-local-form'
 
 import { required, email } from '../validators'
 
