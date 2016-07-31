@@ -1,0 +1,56 @@
+{
+  "name": "redux-form-helpers",
+  "version": "0.1.0",
+  "description": "Manage component state with a local redux store. Includes react components for building composable forms.",
+  "main": "lib/index.js",
+  "scripts": {
+    "build:lib": "babel src --out-dir lib",
+    "lint": "eslint src"
+  },
+  "author": "Jordan Schroter",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^15.3.0",
+    "react-dom": "^15.3.0",
+    "react-redux": "^3.0.0 || ^4.0.0",
+    "redux": "^3.0.0"
+  },
+  "dependencies": {
+    "object-path": "^0.9.2",
+    "object-path-immutable": "^0.4.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.3.17",
+    "babel-core": "^6.3.26",
+    "babel-eslint": "^5.0.0-beta9",
+    "babel-plugin-check-es2015-constants": "^6.3.13",
+    "babel-plugin-syntax-jsx": "^6.3.13",
+    "babel-plugin-transform-class-properties": "^6.11.5",
+    "babel-plugin-transform-decorators-legacy": "^1.2.0",
+    "babel-plugin-transform-es2015-arrow-functions": "^6.3.13",
+    "babel-plugin-transform-es2015-block-scoped-functions": "^6.3.13",
+    "babel-plugin-transform-es2015-block-scoping": "^6.3.13",
+    "babel-plugin-transform-es2015-classes": "^6.3.13",
+    "babel-plugin-transform-es2015-computed-properties": "^6.3.13",
+    "babel-plugin-transform-es2015-destructuring": "^6.3.13",
+    "babel-plugin-transform-es2015-for-of": "^6.3.13",
+    "babel-plugin-transform-es2015-function-name": "^6.3.13",
+    "babel-plugin-transform-es2015-literals": "^6.3.13",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.3.13",
+    "babel-plugin-transform-es2015-object-super": "^6.3.13",
+    "babel-plugin-transform-es2015-parameters": "^6.3.13",
+    "babel-plugin-transform-es2015-shorthand-properties": "^6.3.13",
+    "babel-plugin-transform-es2015-spread": "^6.3.13",
+    "babel-plugin-transform-es2015-sticky-regex": "^6.3.13",
+    "babel-plugin-transform-es2015-template-literals": "^6.3.13",
+    "babel-plugin-transform-es2015-unicode-regex": "^6.3.13",
+    "babel-plugin-transform-object-rest-spread": "^6.3.13",
+    "babel-plugin-transform-react-display-name": "^6.4.0",
+    "babel-plugin-transform-react-jsx": "^6.4.0",
+    "cross-env": "^1.0.7",
+    "eslint": "^1.10.3",
+    "eslint-config-rackt": "^1.1.1",
+    "eslint-plugin-react": "^3.16.1",
+    "webpack": "^1.12.13"
+  }
+}
