@@ -33,18 +33,10 @@ export default class Field extends PureComponent {
     }
   }
 
-  getFormState(store) {
-    let state = store.getState()
-
-    if (store.formReducerName) state = state[store.formReducerName]
-
-    return state
-  }
-
   subscribeToPath(path) {
     const { form } = this.context
 
-    const state = this.getFormState(form)
+    const state = form.getFormState()
 
     this.setState({
       value: objectPath.get(state, path),
@@ -52,7 +44,7 @@ export default class Field extends PureComponent {
     })
 
     this.unsubscribe = form.subscribe(() => {
-      const state = this.getFormState(form)
+      const state = form.getFormState()
 
       this.setState({
         value: objectPath.get(state, path),

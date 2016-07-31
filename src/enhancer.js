@@ -9,7 +9,6 @@ export default function formEnhancer(formReducerName) {
   
   function addValidator(path, validator) {
     validators.push({ path, validator })
-
     return () => removeValidator(path, validator)
   }
 
@@ -21,25 +20,18 @@ export default function formEnhancer(formReducerName) {
 
   function addSubmitListener(listener, submitOnValue) {
     submitListeners.push({ listener, submitOnValue })
-
     return () => removeSubmitListener(listener)
   }
 
   function removeSubmitListener(listener) {
-    submitListeners = submitListeners.filter((x) => x.listener !== listener)
-  }
-
-  function getFormState(store) {
-    let state = store.getState()
-
-    if (formReducerName) state = state[formReducerName]
-
-    return state
+    submitListeners = submitListeners.filter((sl) => {
+      return sl.listener !== listener
+    })
   }
 
   return (next) => (...args) => {
     const store = next(...args)
-    const initialState = getFormState(store)
+    const initialState = getFormState()
     let triggerOnValueListeners = false
 
     // triggers submitOnValue listeners on state change, allows for async
@@ -56,13 +48,21 @@ export default function formEnhancer(formReducerName) {
       }
     })
 
+    function getFormState() {
+      let state = store.getState() || {}
+
+      if (formReducerName) state = state[formReducerName]
+
+      return state
+    }
+
+
     function submitWithListeners(listeners) {
       if (listeners.length === 0) return Promise.resolve()
 
       return validate().then((isValid) => {
         if (!isValid) return
-
-        const state = getFormState(store)
+        const state = getFormState()
         listeners.forEach((listener) => listener(state))
       })
     }
@@ -76,8 +76,7 @@ export default function formEnhancer(formReducerName) {
     }
 
     function runValidator({ path, validator }) {
-      const value = objectPath.get(getFormState(store), path)
-
+      const value = objectPath.get(getFormState(), path)
       let result = validator(value)
 
       // convert result to promise
@@ -122,8 +121,8 @@ export default function formEnhancer(formReducerName) {
 
     return {
       ...store,
+      getFormState,
       dispatch,
-      formReducerName,
       addValidator,
       removeValidator,
       validate,
