@@ -1,18 +1,7 @@
 import React from 'react'
 import { withForm, FormProvider, Field } from 'redux-local-form/lib/react'
-import { isEmail } from 'validator'
 
-const withError = (fn, error) => (value) => fn(value) || error
-
-const required = withError(
-  (value) => !!value, 
-  new Error('Required')
-)
-
-const email = withError((
-  value = '') => isEmail(value), 
-  new Error('Invalid email')
-)
+import { required, email } from '../validators'
 
 const preventDefault = (next) => (e) => {
   e.preventDefault()
