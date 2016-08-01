@@ -3,7 +3,7 @@ React Redux Local Form
 
 [![npm](https://img.shields.io/npm/v/react-redux-local-form.svg?style=flat-square)](https://www.npmjs.com/package/react-redux-local-form)
 
-React Redux Local Form is a set of minimal React components to help with building forms. State is managed with a Redux store that is local to your component. This promotes keeping your [ui state separate from your global state](https://github.com/reactjs/redux/issues/1287#issuecomment-175351978) while still being able to leverage the redux ecosystem. You can also swap redux reducers/actions between local and global state. If these ideas appeal to you read on... if not, check out some of these great alternatives:
+React Redux Local Form is a set of minimal React components to help with building forms. State is managed with a Redux store that is local to your component. This promotes keeping your [ui state separate from your global state](https://github.com/reactjs/redux/issues/1287#issuecomment-175351978) while still being able to leverage the redux ecosystem. You can swap reducers/actions between local and global state as well apply different store enhancers to each level of state. If these ideas appeal to you read on... if not, check out some of these great alternatives:
 
 - [React Redux Form](https://github.com/davidkpiano/react-redux-form): Personal favourite, similar API. 
 - [Redux Form](https://github.com/erikras/redux-form): More features out of the box, mature and popular.
@@ -146,7 +146,9 @@ export default withForm()(
 ```
 
 ## Advanced Usage
-`withForm` also allows you to provide your own reducer and enhancer that will be used to create the form store. This allows you to reuse reducers and bind actions to local component state. You will need to manually apply the default reducer and enhancer.
+`withForm` also allows you to provide your own reducer and enhancer that will be used to create the form store. This allows you to reuse reducers and bind actions to local component state. You can also separate store enhancers depending on the level of state. A good use case for this is persisting and/or batching global state changes without affecting local state.
+
+ You will need to manually apply the default reducer and enhancer.
 
 ```js
 import React, { PureComponent } from 'react'
