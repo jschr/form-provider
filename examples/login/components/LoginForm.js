@@ -48,9 +48,9 @@ function mapFormDispatchToProps(dispatch) {
 
 class LoginForm extends PureComponent {
   handleSubmit = (form) => {
-    const { login, onAuthToken, onUser } = this.props
+    const { attemptLogin, onAuthToken, onUser } = this.props
    
-    login(form.email, form.password)
+    attemptLogin(form.email, form.password)
       .then(({ token, profile }) => { 
         onAuthToken(token)
         onUser(profile)

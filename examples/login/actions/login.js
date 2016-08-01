@@ -1,6 +1,6 @@
 import * as loginConstants from '../constants/login' 
 
-export function login(username, password) {
+export function attemptLogin(username, password) {
   return (dispatch) => {
     dispatch({ type: loginConstants.PENDING })
 
