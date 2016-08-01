@@ -86,7 +86,7 @@ const required = (value) => new Promise((resolve, reject) => {
   else { reject(new Error('Invalid Email')) }
 })
 
-const email (value) => new Promise((resolve, reject) => {
+const email = (value) => new Promise((resolve, reject) => {
   if (isEmail(value)) { resolve() }
   else { reject(new Error('Invalid Email')) }
 })
