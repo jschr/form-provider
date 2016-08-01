@@ -14,43 +14,41 @@ function BasicForm({ form, onSubmit }) {
       <form onSubmit={preventDefault(form.submit)}>
         <Field path="user.firstName" validate={required}>
           { ({ value = '', setValue, error }) => 
-            <div>
+            <section>
               <label>First Name</label>
               <input type="text" value={value} onChange={(e) => setValue(e.target.value)} />
-              { error && error.message }
-            </div>
+              { error && <div className="error">{ error.message }</div> }
+            </section>
           }
         </Field>
         <Field path="user.lastName" validate={required}>
           { ({ value = '', setValue, error }) => 
-            <div>
+            <section>
               <label>Last Name</label>
               <input type="text" value={value} onChange={(e) => setValue(e.target.value)} />
-              { error && error.message }
-            </div>
+              { error && <div className="error">{ error.message }</div> }
+            </section>
           }
         </Field>
         <Field path="user.email" validate={[ required, email ]}>
           { ({ value = '', setValue, error }) => 
-            <div>
+            <section>
               <label>Email</label>
               <input type="text" value={value} onChange={(e) => setValue(e.target.value)} />
-              { error && error.message }
-            </div>
+              { error && <div className="error">{ error.message }</div> }
+            </section>
           }
         </Field>
         <Field path="user.mailingList">
-          { ({ value, setValue, error }) => 
-            <div>
+          { ({ value, setValue }) => 
+            <section>
               <label>
                 <input type="checkbox" checked={value} onChange={(e) => setValue(e.target.checked)} />
                 Join our mailing list
               </label>
-              { error && error.message }
-            </div>
+            </section>
           }
         </Field>
-        <br />
         <button type="submit">Save</button>
         <button type="button" onClick={form.reset}>Reset</button>
       </form>
