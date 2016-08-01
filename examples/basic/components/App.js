@@ -3,8 +3,8 @@ import React, { Component } from 'react'
 import BasicForm from './BasicForm'
 
 export default class App extends Component {
-  handleSubmit = (user) => {
-    this.setState({ user })
+  handleSubmit = (formState) => {
+    this.setState({ user: formState.user })
   }
 
   render() {

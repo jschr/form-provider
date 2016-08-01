@@ -10,7 +10,7 @@ const preventDefault = (next) => (e) => {
 
 function BasicForm({ form, onSubmit }) {
   return (
-    <FormProvider store={form} onSubmit={({ user }) => onSubmit(user)}>
+    <FormProvider store={form} onSubmit={onSubmit}>
       <form onSubmit={preventDefault(form.submit)}>
         <Field path="user.firstName" validate={required}>
           { ({ value = '', setValue, error }) => 
@@ -39,6 +39,18 @@ function BasicForm({ form, onSubmit }) {
             </div>
           }
         </Field>
+        <Field path="user.mailingList">
+          { ({ value, setValue, error }) => 
+            <div>
+              <label>
+                <input type="checkbox" checked={value} onChange={(e) => setValue(e.target.checked)} />
+                Join our mailing list
+              </label>
+              { error && error.message }
+            </div>
+          }
+        </Field>
+        <br />
         <button type="submit">Save</button>
         <button type="button" onClick={form.reset}>Reset</button>
       </form>
@@ -46,4 +58,8 @@ function BasicForm({ form, onSubmit }) {
   )
 }
 
-export default withForm()(BasicForm)
+export default withForm({
+  user: {
+    mailingList: false
+  }
+})(BasicForm)
