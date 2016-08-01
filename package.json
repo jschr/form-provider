@@ -1,6 +1,6 @@
 {
   "name": "react-redux-local-form",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "React components for building forms with a local Redux store for managing state.",
   "main": "lib/index.js",
   "repository": {
