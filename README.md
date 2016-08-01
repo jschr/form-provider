@@ -1,7 +1,7 @@
 React Redux Local Form
 =========================
 
-React Redux Local Form is a set of minimal React components to help with building forms. State is managed with a Redux store that is local to your component. This allows you to keep your [ui state separate from your global state](https://github.com/reactjs/redux/issues/1287#issuecomment-175351978) while still being able to leverage all the benefits of the redux ecosystem. If these ideas appeal to you read on, if not check out some of these great alternatives:
+React Redux Local Form is a set of minimal React components to help with building forms. State is managed with a Redux store that is local to your component. This promotes keeping your [ui state separate from your global state](https://github.com/reactjs/redux/issues/1287#issuecomment-175351978) while still being able to leverage the redux ecosystem. You can also mix and match redux reducers/actions between local and global state. If these ideas appeal to you read on... if not, check out some of these great alternatives:
 
 - [React Redux Form](https://github.com/davidkpiano/react-redux-form): Personal favourite, similar API. 
 - [Redux Form](https://github.com/erikras/redux-form): More features out of the box, mature and most popular.
@@ -74,7 +74,7 @@ export default withForm((props) => {
 
 ## Validation
 
-This library currently doesn't provide any built in validation functions for you, only an API to provide your own. Validation functions are simply functions that accept the current value and return a promise. You can pass in one or an array of validation functions to the `<Field>` component. The form won't submit until all validation functions are resolved.
+This lib currently doesn't provide any validation functions out of the box, only an API to provide your own. Validation functions are simply functions that accept the current value and return a promise. Pass in a single validation function or an array to the `<Field>` component. The form won't submit until all validation functions are resolved.
 
 ```js
 import React from 'react'
@@ -112,9 +112,36 @@ function BasicForm({ form, onSubmit }) {
     </FormProvider>
   )
 }
+
+export default withForm()(BasicForm)
 ``` 
 
 Check out the [basic form example](examples/basic) for the entire source.
+
+## Binding to form state
+
+Use the `connectForm` function to map form state to props. This function has the exact same API as react-redux's `connect` function.
+
+ ```js
+import React from 'react'
+import { withForm, connectForm, FormProvider, Field } from 'react-redux-local-form'
+
+function mapFormStateToProps(formState) {
+  return { 
+    userFormState: formState.user,
+    allErrors: formState.errors 
+  }
+}
+
+function BasicForm({ userFormState, allErrors, form, onSubmit }) {
+  ...
+})
+
+export default withForm()(
+  connectForm(mapFormStateToProps)(withForm)
+)
+
+```
 
 ## Advanced Usage
 
