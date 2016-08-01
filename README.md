@@ -17,7 +17,7 @@ npm install --save react-redux-local-form
 
 ## Basic Usage
 
-```
+```js
 import React from 'react'
 import { withForm, FormProvider, Field } from 'react-redux-local-form'
 
@@ -54,7 +54,7 @@ Check out the [basic form example](examples/basic) for the entire source.
 
 Setting initial form state is done by passing it into `withForm`
 
-```
+```js
 ...
 
 export default withForm({
@@ -76,7 +76,7 @@ export default withForm((props) => {
 
 This library currently doesn't provide any built in validation functions for you, only an API to provide your own. Validation functions are simply functions that accept the current value and return a promise. You can pass in one or an array of validation functions to the `<Field>` component. The form won't submit until all validation functions are resolved.
 
-```
+```js
 import React from 'react'
 import { withForm, FormProvider, Field } from 'react-redux-local-form'
 import { isEmail } from 'validator'
