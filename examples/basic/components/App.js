@@ -11,14 +11,14 @@ export default class App extends Component {
     const { user } = this.state || {}
 
     return (
-      <div>
+      <main>
         <BasicForm onSubmit={this.handleSubmit} />
         { user &&
           <pre>
             { JSON.stringify(user, null, 2) }
           </pre>
         }
-      </div>
+      </main>
     )
   }
 }

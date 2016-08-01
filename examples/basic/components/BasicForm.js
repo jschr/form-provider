@@ -15,27 +15,24 @@ function BasicForm({ form, onSubmit }) {
         <Field path="user.firstName" validate={required}>
           { ({ value = '', setValue, error }) => 
             <section>
-              <label>First Name</label>
+              <label>First Name { error && <div className="error">{ error.message }</div> }</label>
               <input type="text" value={value} onChange={(e) => setValue(e.target.value)} />
-              { error && <div className="error">{ error.message }</div> }
             </section>
           }
         </Field>
         <Field path="user.lastName" validate={required}>
           { ({ value = '', setValue, error }) => 
             <section>
-              <label>Last Name</label>
+              <label>Last Name { error && <div className="error">{ error.message }</div> }</label>
               <input type="text" value={value} onChange={(e) => setValue(e.target.value)} />
-              { error && <div className="error">{ error.message }</div> }
             </section>
           }
         </Field>
         <Field path="user.email" validate={[ required, email ]}>
           { ({ value = '', setValue, error }) => 
             <section>
-              <label>Email</label>
+              <label>Email { error && <div className="error">{ error.message }</div> }</label>
               <input type="text" value={value} onChange={(e) => setValue(e.target.value)} />
-              { error && <div className="error">{ error.message }</div> }
             </section>
           }
         </Field>

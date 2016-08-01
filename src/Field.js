@@ -28,14 +28,12 @@ export default class Field extends PureComponent {
   makeValueHandler(path) {
     return (value) => {
       const { form } = this.context
-
       form.dispatch(actions.setValue(path, value))
     }
   }
 
   subscribeToPath(path) {
     const { form } = this.context
-
     const state = form.getFormState()
 
     this.setState({
@@ -55,7 +53,6 @@ export default class Field extends PureComponent {
 
   addValidators(path, validators = []) {
     const { form } = this.context
-
     const removeFns = [].concat(validators)
       .map((v) => form.addValidator(path, v))
 
