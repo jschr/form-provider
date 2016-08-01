@@ -146,7 +146,7 @@ export default withForm()(
 ```
 
 ## Advanced Usage
-`withForm` allows you to provide a custom reducer and enhancer that will be used to create the form store. This allows you to reuse reducers and bind actions to local component state.
+`withForm` also allows you to provide your own reducer and enhancer that will be used to create the form store. This allows you to reuse reducers and bind actions to local component state. You will need to manually apply the default reducer and enhancer.
 
 ```js
 import React, { PureComponent } from 'react'
@@ -218,19 +218,19 @@ class LoginForm extends PureComponent {
         <form onSubmit={preventDefault(form.submit)}>
           <Field path="email" validate={[ required, email ]}>
             { ({ value = '', setValue, error }) => 
-              <section>
+              <div>
                 <label>Email { error && <div className="error">{ error.message }</div> }</label>
                 <input type="text" value={value} onChange={targetValue(setValue)} />
-              </section>
+              </div>
             }
           </Field>
           <Field path="password" validate={required}>
             { ({ value = '', setValue, error }) => 
-              <section>
+              <div>
                 <label>Password { error && <div className="error">{ error.message }</div> }</label>
                 <input type="password" value={value} onChange={targetValue(setValue)} />
                 <small>Type 'error' to force a login error</small>
-              </section>
+              </div>
             }
           </Field>
           { loginError && 
