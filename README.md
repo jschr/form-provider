@@ -146,4 +146,109 @@ export default withForm()(
 ```
 
 ## Advanced Usage
+`withForm` allows you to provide a custom reducer and enhancer that will be used to create the form store. This allows you to reuse reducers and bind actions to local component state.
+
+```js
+import React, { PureComponent } from 'react'
+import { combineReducers, bindActionCreators, applyMiddleware, compose } from 'redux'
+import thunk from 'redux-thunk'
+import { 
+  withForm,
+  connectForm,
+  FormProvider, 
+  Field, 
+  reducer as formReducer, 
+  enhancer as formEnhancer 
+} from 'react-redux-local-form'
+
+import loginReducer from '../reducers/login'
+import * as loginActions from '../actions/login'
+import { preventDefault, targetValue } from '../helpers'
+import { required, email } from '../validators'
+
+const initialFormState = {
+  // initial form state should reflect your combineReducers structure
+  form: {},
+  login: {
+    error: null,
+    pending: false
+  }
+}
+
+const reducer = combineReducers({
+  form: formReducer,
+  login: loginReducer
+})
+
+const enhancer = compose(
+  applyMiddleware(thunk),
+  // provide the key in state where form state exists (defined in combineReducers)
+  formEnhancer('form')
+)
+
+function mapFormStateToProps(state) {
+  return { 
+    loginPending: state.login.pending, 
+    loginError: state.login.error 
+  }
+}
+
+function mapFormDispatchToProps(dispatch) {
+  return {
+    ...bindActionCreators(loginActions, dispatch)
+  }
+}
+
+class LoginForm extends PureComponent {
+  handleSubmit = (form) => {
+    const { login, onAuthToken, onUser } = this.props
+   
+    login(form.email, form.password)
+      .then(({ token, profile }) => { 
+        onAuthToken(token)
+        onUser(profile)
+      })
+  }
+  render() {
+    const { form, loginPending, loginError } = this.props
+
+    return (
+      <FormProvider store={form} onSubmit={this.handleSubmit}>
+        <form onSubmit={preventDefault(form.submit)}>
+          <Field path="email" validate={[ required, email ]}>
+            { ({ value = '', setValue, error }) => 
+              <section>
+                <label>Email { error && <div className="error">{ error.message }</div> }</label>
+                <input type="text" value={value} onChange={targetValue(setValue)} />
+              </section>
+            }
+          </Field>
+          <Field path="password" validate={required}>
+            { ({ value = '', setValue, error }) => 
+              <section>
+                <label>Password { error && <div className="error">{ error.message }</div> }</label>
+                <input type="password" value={value} onChange={targetValue(setValue)} />
+                <small>Type 'error' to force a login error</small>
+              </section>
+            }
+          </Field>
+          { loginError && 
+            <div className="error">{ loginError.message }</div>
+          }
+          <button type="submit" disabled={loginPending}>
+            { loginPending ? 'Logging in...' : 'Login' }
+          </button>
+        </form>
+      </FormProvider>
+    )
+  }
+}
+
+export default withForm(initialFormState, reducer, enhancer)(
+  connectForm(mapFormStateToProps, mapFormDispatchToProps)(LoginForm)
+)
+
+```
+
+Check out the [login form example](examples/login) for the entire source.
 

@@ -1,4 +1,4 @@
-import React, { PureComponent, PropTypes } from 'react'
+import React, { PureComponent } from 'react'
 import { combineReducers, bindActionCreators, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 import { 
