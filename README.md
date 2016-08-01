@@ -209,6 +209,7 @@ class LoginForm extends PureComponent {
         onUser(profile)
       })
   }
+  
   render() {
     const { form, loginPending, loginError } = this.props
 
