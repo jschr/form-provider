@@ -168,44 +168,11 @@ import * as loginActions from '../actions/login'
 import { preventDefault, targetValue } from '../helpers'
 import { required, email } from '../validators'
 
-const initialFormState = {
-  // initial form state should reflect your combineReducers structure
-  form: {},
-  login: {
-    error: null,
-    pending: false
-  }
-}
-
-const reducer = combineReducers({
-  form: formReducer,
-  login: loginReducer
-})
-
-const enhancer = compose(
-  applyMiddleware(thunk),
-  // provide the key in state where form state exists (defined in combineReducers)
-  formEnhancer('form')
-)
-
-function mapFormStateToProps(state) {
-  return { 
-    loginPending: state.login.pending, 
-    loginError: state.login.error 
-  }
-}
-
-function mapFormDispatchToProps(dispatch) {
-  return {
-    ...bindActionCreators(loginActions, dispatch)
-  }
-}
-
 class LoginForm extends PureComponent {
   handleSubmit = (form) => {
-    const { attemptLogin, onAuthToken, onUser } = this.props
+    const { login, onAuthToken, onUser } = this.props
    
-    attemptLogin(form.email, form.password)
+    login(form.email, form.password)
       .then(({ token, profile }) => { 
         onAuthToken(token)
         onUser(profile)
@@ -243,6 +210,39 @@ class LoginForm extends PureComponent {
         </form>
       </FormProvider>
     )
+  }
+}
+
+const initialFormState = {
+  // initial form state should reflect your combineReducers structure
+  form: {},
+  login: {
+    error: null,
+    pending: false
+  }
+}
+
+const reducer = combineReducers({
+  form: formReducer,
+  login: loginReducer
+})
+
+const enhancer = compose(
+  applyMiddleware(thunk),
+  // provide the key in state where form state exists (defined in combineReducers)
+  formEnhancer('form')
+)
+
+function mapFormStateToProps(state) {
+  return { 
+    loginPending: state.login.pending, 
+    loginError: state.login.error 
+  }
+}
+
+function mapFormDispatchToProps(dispatch) {
+  return {
+    ...bindActionCreators(loginActions, dispatch)
   }
 }
 

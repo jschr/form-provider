@@ -15,37 +15,6 @@ import * as loginActions from '../actions/login'
 import { preventDefault, targetValue } from '../helpers'
 import { required, email } from '../validators'
 
-const initialFormState = {
-  form: {},
-  login: {
-    error: null,
-    pending: false
-  }
-}
-
-const reducer = combineReducers({
-  form: formReducer,
-  login: loginReducer
-})
-
-const enhancer = compose(
-  applyMiddleware(thunk),
-  formEnhancer('form')
-)
-
-function mapFormStateToProps(state) {
-  return { 
-    loginPending: state.login.pending, 
-    loginError: state.login.error 
-  }
-}
-
-function mapFormDispatchToProps(dispatch) {
-  return {
-    ...bindActionCreators(loginActions, dispatch)
-  }
-}
-
 class LoginForm extends PureComponent {
   handleSubmit = (form) => {
     const { attemptLogin, onAuthToken, onUser } = this.props
@@ -89,6 +58,37 @@ class LoginForm extends PureComponent {
         </form>
       </FormProvider>
     )
+  }
+}
+
+const initialFormState = {
+  form: {},
+  login: {
+    error: null,
+    pending: false
+  }
+}
+
+const reducer = combineReducers({
+  form: formReducer,
+  login: loginReducer
+})
+
+const enhancer = compose(
+  applyMiddleware(thunk),
+  formEnhancer('form')
+)
+
+function mapFormStateToProps(state) {
+  return { 
+    loginPending: state.login.pending, 
+    loginError: state.login.error 
+  }
+}
+
+function mapFormDispatchToProps(dispatch) {
+  return {
+    ...bindActionCreators(loginActions, dispatch)
   }
 }
 
