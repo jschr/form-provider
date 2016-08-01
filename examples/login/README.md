@@ -5,5 +5,7 @@ Stores auth and user state in a global redux store that is persisted to local st
 ```
 cd examples/login
 npm install
+npm start
+
 localhost:3000
 ```
