@@ -3,6 +3,10 @@
   "version": "0.1.1",
   "description": "React components for building forms with a local Redux store for managing state.",
   "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jschr/react-redux-local-form"
+  },
   "scripts": {
     "build:lib": "babel src --out-dir lib",
     "clean": "rimraf lib",
