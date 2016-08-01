@@ -10,6 +10,8 @@
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
     "react-redux-local-form": "^0.1.1",
+    "redux-persist": "^3.2.2",
+    "redux-thunk": "^2.1.0",
     "validator": "^5.5.0"
   },
   "devDependencies": {

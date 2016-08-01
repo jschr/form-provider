@@ -1,24 +1,15 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-import BasicForm from './BasicForm'
+import Dashboard from './Dashboard'
+import LoginForm from './LoginForm'
 
-export default class App extends Component {
-  handleSubmit = (formState) => {
-    this.setState({ user: formState.user })
-  }
-
-  render() {
-    const { user } = this.state || {}
-
-    return (
-      <main>
-        <BasicForm onSubmit={this.handleSubmit} />
-        { user &&
-          <pre>
-            { JSON.stringify(user, null, 2) }
-          </pre>
-        }
-      </main>
-    )
-  }
+export default function App({ auth, user, setAuth, unsetAuth, setUser }) {
+  return (
+    <main>
+      { auth
+        ? <Dashboard user={user} onLogout={unsetAuth} />
+        : <LoginForm onAuthToken={setAuth} onUser={setUser} />
+      }
+    </main>
+  )
 }

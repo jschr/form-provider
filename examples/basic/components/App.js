@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 
 import BasicForm from './BasicForm'
 
-export default class App extends Component {
+export default class App extends PureComponent {
   handleSubmit = (formState) => {
     this.setState({ user: formState.user })
   }
