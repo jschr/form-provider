@@ -1,7 +1,7 @@
 {
   "name": "react-redux-local-form",
-  "version": "0.1.0",
-  "description": "Manage component state with a local redux store. Includes react components for building composable forms.",
+  "version": "0.1.1",
+  "description": "React components for building forms with a local Redux store for managing state.",
   "main": "lib/index.js",
   "scripts": {
     "build:lib": "babel src --out-dir lib",

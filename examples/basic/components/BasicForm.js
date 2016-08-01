@@ -3,6 +3,11 @@ import { withForm, FormProvider, Field } from 'react-redux-local-form'
 
 import { required, email } from '../validators'
 
+const preventDefault = (next) => (e) => {
+  e.preventDefault()
+  next()
+} 
+
 function BasicForm({ form, onSubmit }) {
   return (
     <FormProvider store={form} onSubmit={onSubmit}>

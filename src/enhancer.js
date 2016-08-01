@@ -78,7 +78,7 @@ export default function formEnhancer(formReducerName) {
     function runValidator({ path, validator }) {
       const value = objectPath.get(getFormState(), path)
     
-      return validator(value)
+      return validator(value, path, getFormState())
         .then(() => {
           dispatch(actions.clearValidationError(path))
           return true
