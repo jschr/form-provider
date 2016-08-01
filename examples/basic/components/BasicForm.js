@@ -1,12 +1,7 @@
 import React from 'react'
-import { withForm, FormProvider, Field } from 'redux-local-form'
+import { withForm, FormProvider, Field } from 'react-redux-local-form'
 
 import { required, email } from '../validators'
-
-const preventDefault = (next) => (e) => {
-  e.preventDefault()
-  next()
-} 
 
 function BasicForm({ form, onSubmit }) {
   return (

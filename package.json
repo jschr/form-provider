@@ -1,12 +1,13 @@
 {
-  "name": "react-redux-form",
+  "name": "react-redux-local-form",
   "version": "0.1.0",
   "description": "Manage component state with a local redux store. Includes react components for building composable forms.",
   "main": "lib/index.js",
   "scripts": {
     "build:lib": "babel src --out-dir lib",
     "clean": "rimraf lib",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "prepublish": "npm run clean && npm run lint && npm run build:lib"
   },
   "author": "Jordan Schroter",
   "license": "MIT",

@@ -77,18 +77,8 @@ export default function formEnhancer(formReducerName) {
 
     function runValidator({ path, validator }) {
       const value = objectPath.get(getFormState(), path)
-      let result = validator(value)
-
-      // convert result to promise
-      if (typeof result !== 'object' || !result.then) {
-        if (result === true) {
-          result = Promise.resolve()
-        } else {
-          result = Promise.reject(result)
-        }
-      }
-
-      return result
+    
+      return validator(value)
         .then(() => {
           dispatch(actions.clearValidationError(path))
           return true
