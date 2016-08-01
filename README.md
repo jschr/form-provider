@@ -231,7 +231,6 @@ class LoginForm extends PureComponent {
               <div>
                 <label>Password { error && <div className="error">{ error.message }</div> }</label>
                 <input type="password" value={value} onChange={targetValue(setValue)} />
-                <small>Type 'error' to force a login error</small>
               </div>
             }
           </Field>
