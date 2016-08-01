@@ -9,6 +9,7 @@
   "dependencies": {
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
+    "react-redux-local-form": "^0.1.1",
     "validator": "^5.5.0"
   },
   "devDependencies": {
