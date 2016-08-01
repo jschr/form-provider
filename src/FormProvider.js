@@ -1,15 +1,17 @@
 import { PureComponent, PropTypes, Children } from 'react'
 
+import formStoreShape from './formStoreShape'
+
 export default class FormProvider extends PureComponent {
   static propTypes = {
-    store: PropTypes.object,
+    store: PropTypes.object.isRequired,
     submitOnValue: PropTypes.bool,
     onSubmit: PropTypes.func,
     children: PropTypes.node
   }
 
   static childContextTypes = {
-    form: PropTypes.object
+    form: formStoreShape.isRequired
   }
 
   getChildContext() {

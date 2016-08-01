@@ -2,17 +2,24 @@ import { PureComponent, PropTypes } from 'react'
 import invariant from 'invariant'
 import objectPath from 'object-path'
 
+import formStoreShape from './formStoreShape'
 import * as actions from './actions'
 
 export default class Field extends PureComponent {
   static propTypes = {
-    path: PropTypes.string,
-    validate: PropTypes.any,
-    children: PropTypes.any
+    path: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.array
+    ]).isRequired,
+    validate: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.arrayOf(PropTypes.func)
+    ]),
+    children: PropTypes.func.isRequired
   }
 
   static contextTypes = {
-    form: PropTypes.object
+    form: formStoreShape.isRequired
   }
 
   isValidPath(path) {
