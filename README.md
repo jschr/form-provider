@@ -5,7 +5,7 @@ React Redux Local Form
 
 React Redux Local Form is a set of minimal React components to help with building forms. State is managed with a Redux store that is local to your component. This promotes keeping your [ui state separate from your global application state](https://github.com/reactjs/redux/issues/1287#issuecomment-175351978) while still being able to leverage the redux ecosystem. You can swap reducers/actions between local and global state as well as apply different store enhancers to each level of state. If these ideas appeal to you read on... if not, check out some of these great alternatives:
 
-- [React Redux Form](https://github.com/davidkpiano/react-redux-form): Personal favourite, similar API. 
+- [React Redux Form](https://github.com/davidkpiano/react-redux-form): Personal favourite, similar API.
 - [Redux Form](https://github.com/erikras/redux-form): More features out of the box, mature and popular.
 - [React Forms](https://github.com/prometheusresearch/react-forms): Validate with JSONSchema, no redux dependency
 
@@ -28,7 +28,7 @@ function BasicForm({ form, onSubmit }) {
     <FormProvider store={form} onSubmit={onSubmit}>
       <form onSubmit={preventDefault(form.submit)}>
         <Field path="user.firstName">
-          { ({ value = '', setValue }) => 
+          { ({ value = '', setValue }) =>
             <div>
               <label>First Name</label>
               <input type="text" value={value} onChange={(e) => setValue(e.target.value)} />
@@ -44,7 +44,7 @@ function BasicForm({ form, onSubmit }) {
 const preventDefault = (next) => (e) => {
   e.preventDefault()
   next()
-} 
+}
 
 export default withForm()(BasicForm)
 
@@ -98,7 +98,7 @@ function BasicForm({ form, onSubmit }) {
     <FormProvider store={form} onSubmit={onSubmit}>
       <form onSubmit={preventDefault(form.submit)}>
         <Field path="user.firstName" validate={required}>
-          { ({ value = '', setValue, error }) => 
+          { ({ value = '', setValue, error }) =>
             <div>
               <label>First Name</label>
               <input type="text" value={value} onChange={(e) => setValue(e.target.value)} />
@@ -116,7 +116,7 @@ function BasicForm({ form, onSubmit }) {
 }
 
 export default withForm()(BasicForm)
-``` 
+```
 
 Check out the [basic form example](examples/basic) for the entire source.
 
@@ -129,9 +129,9 @@ import React from 'react'
 import { withForm, connectForm, FormProvider, Field } from 'react-redux-local-form'
 
 function mapFormStateToProps(formState) {
-  return { 
+  return {
     userFormState: formState.user,
-    allErrors: formState.errors 
+    allErrors: formState.errors
   }
 }
 
@@ -154,13 +154,13 @@ Don't forget to manually apply the default form reducer and enhancer.
 import React, { PureComponent } from 'react'
 import { combineReducers, bindActionCreators, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
-import { 
+import {
   withForm,
   connectForm,
-  FormProvider, 
-  Field, 
-  reducer as formReducer, 
-  enhancer as formEnhancer 
+  FormProvider,
+  Field,
+  reducer as formReducer,
+  enhancer as formEnhancer
 } from 'react-redux-local-form'
 
 import loginReducer from '../reducers/login'
@@ -169,16 +169,17 @@ import { preventDefault, targetValue } from '../helpers'
 import { required, email } from '../validators'
 
 class LoginForm extends PureComponent {
-  handleSubmit = (form) => {
+  handleSubmit = (formState) => {
     const { attemptLogin, onAuthToken, onUser } = this.props
-   
-    attemptLogin(form.email, form.password)
-      .then(({ token, profile }) => { 
+    const { email, password } = formState
+
+    attemptLogin(email, password)
+      .then(({ token, profile }) => {
         onAuthToken(token)
         onUser(profile)
       })
   }
-  
+
   render() {
     const { form, loginPending, loginError } = this.props
 
@@ -186,7 +187,7 @@ class LoginForm extends PureComponent {
       <FormProvider store={form} onSubmit={this.handleSubmit}>
         <form onSubmit={preventDefault(form.submit)}>
           <Field path="email" validate={[ required, email ]}>
-            { ({ value = '', setValue, error }) => 
+            { ({ value = '', setValue, error }) =>
               <div>
                 <label>Email { error && <div className="error">{ error.message }</div> }</label>
                 <input type="text" value={value} onChange={targetValue(setValue)} />
@@ -194,14 +195,14 @@ class LoginForm extends PureComponent {
             }
           </Field>
           <Field path="password" validate={required}>
-            { ({ value = '', setValue, error }) => 
+            { ({ value = '', setValue, error }) =>
               <div>
                 <label>Password { error && <div className="error">{ error.message }</div> }</label>
                 <input type="password" value={value} onChange={targetValue(setValue)} />
               </div>
             }
           </Field>
-          { loginError && 
+          { loginError &&
             <div className="error">{ loginError.message }</div>
           }
           <button type="submit" disabled={loginPending}>
@@ -234,9 +235,9 @@ const enhancer = compose(
 )
 
 function mapFormStateToProps(state) {
-  return { 
-    loginPending: state.login.pending, 
-    loginError: state.login.error 
+  return {
+    loginPending: state.login.pending,
+    loginError: state.login.error
   }
 }
 

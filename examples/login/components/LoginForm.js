@@ -1,13 +1,13 @@
 import React, { PureComponent } from 'react'
 import { combineReducers, bindActionCreators, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
-import { 
+import {
   withForm,
   connectForm,
-  FormProvider, 
-  Field, 
-  reducer as formReducer, 
-  enhancer as formEnhancer 
+  FormProvider,
+  Field,
+  reducer as formReducer,
+  enhancer as formEnhancer
 } from 'react-redux-local-form'
 
 import loginReducer from '../reducers/login'
@@ -16,11 +16,12 @@ import { preventDefault, targetValue } from '../helpers'
 import { required, email } from '../validators'
 
 class LoginForm extends PureComponent {
-  handleSubmit = (form) => {
+  handleSubmit = (formState) => {
     const { attemptLogin, onAuthToken, onUser } = this.props
-   
-    attemptLogin(form.email, form.password)
-      .then(({ token, profile }) => { 
+    const { email, password } = formState
+
+    attemptLogin(email, password)
+      .then(({ token, profile }) => {
         onAuthToken(token)
         onUser(profile)
       })
@@ -33,7 +34,7 @@ class LoginForm extends PureComponent {
       <FormProvider store={form} onSubmit={this.handleSubmit}>
         <form onSubmit={preventDefault(form.submit)}>
           <Field path="email" validate={[ required, email ]}>
-            { ({ value = '', setValue, error }) => 
+            { ({ value = '', setValue, error }) =>
               <section>
                 <label>Email { error && <div className="error">{ error.message }</div> }</label>
                 <input type="text" value={value} onChange={targetValue(setValue)} />
@@ -41,7 +42,7 @@ class LoginForm extends PureComponent {
             }
           </Field>
           <Field path="password" validate={required}>
-            { ({ value = '', setValue, error }) => 
+            { ({ value = '', setValue, error }) =>
               <section>
                 <label>Password { error && <div className="error">{ error.message }</div> }</label>
                 <input type="password" value={value} onChange={targetValue(setValue)} />
@@ -49,7 +50,7 @@ class LoginForm extends PureComponent {
               </section>
             }
           </Field>
-          { loginError && 
+          { loginError &&
             <div className="error">{ loginError.message }</div>
           }
           <button type="submit" disabled={loginPending}>
@@ -80,9 +81,9 @@ const enhancer = compose(
 )
 
 function mapFormStateToProps(state) {
-  return { 
-    loginPending: state.login.pending, 
-    loginError: state.login.error 
+  return {
+    loginPending: state.login.pending,
+    loginError: state.login.error
   }
 }
 
