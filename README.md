@@ -3,7 +3,9 @@ React Redux Local Form
 
 [![npm](https://img.shields.io/npm/v/react-redux-local-form.svg?style=flat-square)](https://www.npmjs.com/package/react-redux-local-form)
 
-React Redux Local Form is a set of minimal React components to help with building forms. State is managed with a Redux store that is local to your component. This promotes keeping your [ui state separate from your global application state](https://github.com/reactjs/redux/issues/1287#issuecomment-175351978) while still being able to leverage the redux ecosystem. You can swap reducers/actions between local and global state as well as apply different store enhancers to each level of state. If these ideas appeal to you read on... if not, check out some of these great alternatives:
+React Redux Local Form is a set of minimal React components to help with building forms. State is managed with a Redux store that is local to your component. This promotes keeping your [ui state separate from your global application state](https://github.com/reactjs/redux/issues/1287#issuecomment-175351978) while still being able to leverage the redux ecosystem. You can swap reducers/actions between local and global state as well as apply different store enhancers to each level of state. 
+
+Check out some of these great alternatives:
 
 - [React Redux Form](https://github.com/davidkpiano/react-redux-form): Personal favourite, similar API.
 - [Redux Form](https://github.com/erikras/redux-form): More features out of the box, mature and popular.
