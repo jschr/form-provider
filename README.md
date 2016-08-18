@@ -3,7 +3,7 @@ React Redux Local Form
 
 [![npm](https://img.shields.io/npm/v/react-redux-local-form.svg?style=flat-square)](https://www.npmjs.com/package/react-redux-local-form)
 
-React Redux Local Form is a set of minimal React components to help with building forms. State is managed with a Redux store that is local to your component. This promotes keeping your [ui state separate from your global application state](https://github.com/reactjs/redux/issues/1287#issuecomment-175351978) while still being able to leverage the redux ecosystem. You can swap reducers/actions between local and global state as well as apply different store enhancers to each level of state. 
+React Redux Local Form is a set of minimal React components to help with building forms. State is managed with a Redux store that is local to your component. This promotes keeping your [ui state separate from your global application state](https://github.com/reactjs/redux/issues/1287#issuecomment-175351978) while still being able to leverage the redux ecosystem. You can swap reducers/actions between local and global state as well as apply different store enhancers to each level of state.
 
 Check out some of these great alternatives:
 
@@ -25,9 +25,9 @@ npm install --save react-redux-local-form
 import React from 'react'
 import { withForm, FormProvider, Field } from 'react-redux-local-form'
 
-function BasicForm({ form, onSubmit }) {
+function BasicForm({ form, onUser }) {
   return (
-    <FormProvider store={form} onSubmit={onSubmit}>
+    <FormProvider store={form} onSubmit={(formState) => onUser(formState.user)}>
       <form onSubmit={preventDefault(form.submit)}>
         <Field path="user.firstName">
           { ({ value = '', setValue }) =>
@@ -37,6 +37,7 @@ function BasicForm({ form, onSubmit }) {
             </div>
           }
         </Field>
+        ...
         <button type="submit">Save</button>
       </form>
     </FormProvider>

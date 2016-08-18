@@ -3,8 +3,8 @@ import React, { PureComponent } from 'react'
 import BasicForm from './BasicForm'
 
 export default class App extends PureComponent {
-  handleSubmit = (formState) => {
-    this.setState({ user: formState.user })
+  handleUser = (user) => {
+    this.setState({ user })
   }
 
   render() {
@@ -12,7 +12,7 @@ export default class App extends PureComponent {
 
     return (
       <main>
-        <BasicForm onSubmit={this.handleSubmit} />
+        <BasicForm onUser={this.handleUser} />
         { user &&
           <pre>
             { JSON.stringify(user, null, 2) }
