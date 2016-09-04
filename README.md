@@ -69,9 +69,9 @@ export default withForm({
 })(BasicForm)
 
 // or as a function of props
-export default withForm((props) => {
+export default withForm((props) => ({
   user: props.user
-})(BasicForm)
+}))(BasicForm)
 
 ```
 
