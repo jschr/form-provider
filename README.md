@@ -68,11 +68,9 @@ export default withForm({
   }
 })(BasicForm)
 
-// or a function of props
+// or as a function of props
 export default withForm((props) => {
-  user: {
-    firstName: props.user.firstName
-  }
+  user: props.user
 })(BasicForm)
 
 ```
