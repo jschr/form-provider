@@ -6,16 +6,18 @@ import * as actions from './actions'
 export default function formEnhancer(formReducerName) {
   let validators = []
   let submitListeners = []
-  
+
+  function removeValidator(path, validator) {
+    validators = validators.filter(v => v.path !== path && v.validator !== validator)
+  }
+
+  function removeSubmitListener(listener) {
+    submitListeners = submitListeners.filter(sl => sl.listener !== listener)
+  }
+
   function addValidator(path, validator) {
     validators.push({ path, validator })
     return () => removeValidator(path, validator)
-  }
-
-  function removeValidator(path, validator) {
-    validators = validators.filter((v) => {
-      return v.path !== path && v.validator !== validator
-    })
   }
 
   function addSubmitListener(listener, submitOnValue) {
@@ -23,16 +25,56 @@ export default function formEnhancer(formReducerName) {
     return () => removeSubmitListener(listener)
   }
 
-  function removeSubmitListener(listener) {
-    submitListeners = submitListeners.filter((sl) => {
-      return sl.listener !== listener
-    })
-  }
-
-  return (next) => (...args) => {
+  return next => (...args) => {
     const store = next(...args)
+
+    function getFormState() {
+      let state = store.getState() || {}
+
+      if (formReducerName) state = state[formReducerName]
+
+      return state
+    }
+
     const initialState = getFormState()
     let triggerOnValueListeners = false
+
+    function dispatch(action) {
+      if (action.type === VALUE) {
+        triggerOnValueListeners = true
+      }
+
+      store.dispatch(action)
+    }
+
+    function runValidator({ path, validator }) {
+      const value = objectPath.get(getFormState(), path)
+
+      return validator(value, path, getFormState())
+        .then(() => {
+          dispatch(actions.clearValidationError(path))
+          return true
+        })
+        .catch((err) => {
+          dispatch(actions.setValidationError(path, err))
+          return false
+        })
+    }
+
+    function validate() {
+      return Promise.all(validators.map(runValidator))
+        .then(results => results.every(isValid => isValid))
+    }
+
+    function submitWithListeners(listeners) {
+      if (listeners.length === 0) return Promise.resolve()
+
+      return validate().then((isValid) => {
+        if (!isValid) return
+        const state = getFormState()
+        listeners.forEach(listener => listener(state))
+      })
+    }
 
     // triggers submitOnValue listeners on state change, allows for async
     // store updates like batched subscribe
@@ -47,52 +89,6 @@ export default function formEnhancer(formReducerName) {
         submitWithListeners(onValueSubmitListeners)
       }
     })
-
-    function getFormState() {
-      let state = store.getState() || {}
-
-      if (formReducerName) state = state[formReducerName]
-
-      return state
-    }
-
-
-    function submitWithListeners(listeners) {
-      if (listeners.length === 0) return Promise.resolve()
-
-      return validate().then((isValid) => {
-        if (!isValid) return
-        const state = getFormState()
-        listeners.forEach((listener) => listener(state))
-      })
-    }
-
-    function dispatch(action) {
-      if (action.type === VALUE) {
-        triggerOnValueListeners = true
-      }
-
-      store.dispatch(action)
-    }
-
-    function runValidator({ path, validator }) {
-      const value = objectPath.get(getFormState(), path)
-    
-      return validator(value, path, getFormState())
-        .then(() => {
-          dispatch(actions.clearValidationError(path))
-          return true
-        })
-        .catch((err) => {
-          dispatch(actions.setValidationError(path, err))
-          return false
-        })
-    }
-
-    function validate() {
-      return Promise.all(validators.map(runValidator))
-        .then((results) => results.every((isValid) => isValid))
-    }
 
     function submit() {
       const allSubmitListeners = submitListeners

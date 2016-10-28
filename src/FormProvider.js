@@ -3,29 +3,16 @@ import { PureComponent, PropTypes, Children } from 'react'
 import formStoreShape from './formStoreShape'
 
 export default class FormProvider extends PureComponent {
-  static propTypes = {
-    store: PropTypes.object.isRequired,
-    submitOnValue: PropTypes.bool,
-    onSubmit: PropTypes.func,
-    children: PropTypes.node
-  }
-
-  static childContextTypes = {
-    form: formStoreShape.isRequired
-  }
-
   getChildContext() {
-    const { store } = this.props
+    const { form } = this.props
 
-    return {
-      form: store
-    }
+    return { form }
   }
 
   componentWillMount() {
-    const { store, onSubmit, submitOnValue } = this.props
+    const { form, onSubmit, submitOnValue } = this.props
 
-    this.removeSubmitListener = store.addSubmitListener(onSubmit, submitOnValue)
+    this.removeSubmitListener = form.addSubmitListener(onSubmit, submitOnValue)
   }
 
   componentWillUnmount() {
@@ -37,4 +24,15 @@ export default class FormProvider extends PureComponent {
 
     return Children.only(children)
   }
+}
+
+FormProvider.propTypes = {
+  form: formStoreShape.isRequired,
+  submitOnValue: PropTypes.bool,
+  onSubmit: PropTypes.func,
+  children: PropTypes.node
+}
+
+FormProvider.childContextTypes = {
+  form: formStoreShape.isRequired
 }

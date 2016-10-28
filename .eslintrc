@@ -1,12 +1,14 @@
 {
-  "extends": "rackt",
-  "rules": {
-    "valid-jsdoc": 2,
-    "react/jsx-uses-react": 1,
-    "react/jsx-no-undef": 2,
-    "react/wrap-multilines": 2
+  "extends": "airbnb",
+  "env": {
+    "browser": true
   },
-  "plugins": [
-    "react"
-  ]
+  "rules": {
+    "semi": ["error", "never"],
+    "comma-dangle": ["error", "never"],
+    "consistent-return": ["off"],
+    "import/no-extraneous-dependencies": ["off"],
+    "react/jsx-filename-extension": ["off"],
+    "jsx-a11y/label-has-for": ["off"]
+  }
 }

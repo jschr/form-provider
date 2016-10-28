@@ -5,7 +5,7 @@ export default function connectForm(...args) {
   return function wrapWithConnect(BaseComponent) {
     const ConnectedBaseComponent = connect(...args)(BaseComponent)
 
-    return (props) =>
-      <ConnectedBaseComponent { ...props } store={ props.form } />
+    return props =>
+      <ConnectedBaseComponent {...props} store={props.form} /> // eslint-disable-line
   }
 }

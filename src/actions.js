@@ -1,7 +1,7 @@
 import { VALUE, VALIDATION_ERROR, CLEAR_VALIDATION_ERROR, SET_STATE } from './constants'
 
 export function setValue(path, value) {
-  return { 
+  return {
     type: VALUE,
     payload: { path, value }
   }
@@ -22,7 +22,7 @@ export function clearValidationError(path) {
 }
 
 export function setState(state) {
-  return { 
+  return {
     type: SET_STATE,
     payload: state
   }
