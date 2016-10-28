@@ -1,7 +1,6 @@
-React Redux Local Form
-=========================
+# react-redux-form-provider
 
-[![npm](https://img.shields.io/npm/v/react-redux-local-form.svg?style=flat-square)](https://www.npmjs.com/package/react-redux-local-form)
+[![npm](https://img.shields.io/npm/v/rreact-redux-form-provider.svg?style=flat-square)](https://www.npmjs.com/package/rreact-redux-form-provider)
 
 React Redux Local Form is a set of minimal React components to help with building forms. State is managed with a Redux store that is local to your component. This promotes keeping your [ui state separate from your global application state](https://github.com/reactjs/redux/issues/1287#issuecomment-175351978) while still being able to leverage the redux ecosystem. You can swap reducers/actions between local and global state as well as apply different store enhancers to each level of state.
 
@@ -16,24 +15,24 @@ Check out some of these great alternatives:
 React 15.3.0 and Redux 3.0.0 or later are peer dependencies.
 
 ```
-npm install --save react-redux-local-form
+npm install --save react-redux-form-provider
 ```
 
 ## Basic Usage
 
 ```js
 import React from 'react'
-import { withForm, FormProvider, Field } from 'react-redux-local-form'
+import { withForm, FormProvider, Field } from 'react-redux-form-provider'
 
 function BasicForm({ form, onUser }) {
   return (
-    <FormProvider store={form} onSubmit={(formState) => onUser(formState.user)}>
+    <FormProvider form={form} onSubmit={formState => onUser(formState.user)}>
       <form onSubmit={preventDefault(form.submit)}>
         <Field path="user.firstName">
           { ({ value = '', setValue }) =>
             <div>
               <label>First Name</label>
-              <input type="text" value={value} onChange={(e) => setValue(e.target.value)} />
+              <input type="text" value={value} onChange={e => setValue(e.target.value)} />
             </div>
           }
         </Field>
@@ -69,7 +68,7 @@ export default withForm({
 })(BasicForm)
 
 // or as a function of props
-export default withForm((props) => ({
+export default withForm(props => ({
   user: props.user
 }))(BasicForm)
 
@@ -81,7 +80,7 @@ This lib currently doesn't provide any validation functions out of the box, only
 
 ```js
 import React from 'react'
-import { withForm, FormProvider, Field } from 'react-redux-local-form'
+import { withForm, FormProvider, Field } from 'react-redux-form-provider'
 import { isEmail } from 'validator'
 
 const required = (value) => new Promise((resolve, reject) => {
@@ -102,7 +101,7 @@ function BasicForm({ form, onSubmit }) {
           { ({ value = '', setValue, error }) =>
             <div>
               <label>First Name</label>
-              <input type="text" value={value} onChange={(e) => setValue(e.target.value)} />
+              <input type="text" value={value} onChange={e => setValue(e.target.value)} />
               { error && error.message }
             </div>
           }
@@ -127,7 +126,7 @@ Use the `connectForm` function to map form state to props. This function has the
 
  ```js
 import React from 'react'
-import { withForm, connectForm, FormProvider, Field } from 'react-redux-local-form'
+import { withForm, connectForm, FormProvider, Field } from 'react-redux-form-provider'
 
 function mapFormStateToProps(formState) {
   return {
@@ -162,7 +161,7 @@ import {
   Field,
   reducer as formReducer,
   enhancer as formEnhancer
-} from 'react-redux-local-form'
+} from 'react-redux-form-provider'
 
 import loginReducer from '../reducers/login'
 import * as loginActions from '../actions/login'
