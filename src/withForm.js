@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { createStore } from 'redux'
 
 import formReducer from './reducer'
@@ -6,7 +6,7 @@ import formEnhancer from './enhancer'
 
 export default function withForm(initialState, reducer = formReducer, enhancer = formEnhancer()) {
   return (BaseComponent) => {
-    class WrappedComponent extends Component {
+    class WrappedComponent extends PureComponent {
       componentWillMount() {
         const state = typeof initialState === 'function'
           ? initialState(this.props)
