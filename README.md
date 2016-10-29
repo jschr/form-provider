@@ -1,8 +1,8 @@
 # react-redux-form-provider
 
-[![npm](https://img.shields.io/npm/v/rreact-redux-form-provider.svg?style=flat-square)](https://www.npmjs.com/package/rreact-redux-form-provider)
+[![npm](https://img.shields.io/npm/v/react-redux-form-provider.svg?style=flat-square)](https://www.npmjs.com/package/react-redux-form-provider)
 
-React Redux Local Form is a set of minimal React components to help with building forms. State is managed with a Redux store that is local to your component. This promotes keeping your [ui state separate from your global application state](https://github.com/reactjs/redux/issues/1287#issuecomment-175351978) while still being able to leverage the redux ecosystem. You can swap reducers/actions between local and global state as well as apply different store enhancers to each level of state.
+A set of React helpers to help with building forms. State is managed with a Redux store that is local to your component. This promotes keeping your [ui state separate from your global application state](https://github.com/reactjs/redux/issues/1287#issuecomment-175351978) while still being able to leverage the redux ecosystem. You can swap reducers/actions between local and global state as well as apply different store enhancers to each level of state.
 
 Check out some of these great alternatives:
 
@@ -43,7 +43,7 @@ function BasicForm({ form, onUser }) {
   )
 }
 
-const preventDefault = (next) => (e) => {
+const preventDefault = next => e => {
   e.preventDefault()
   next()
 }
