@@ -43,7 +43,7 @@ function BasicForm({ form, onUser }) {
   )
 }
 
-const preventDefault = (next) => (e) => {
+const preventDefault = next => e => {
   e.preventDefault()
   next()
 }
