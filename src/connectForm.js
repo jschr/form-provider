@@ -7,13 +7,13 @@ export default function connectForm(...args) {
   return function wrapWithConnect(BaseComponent) {
     const ConnectedBaseComponent = connect(...args)(BaseComponent)
 
-    function ConnectedComponent(props, context) {
+    function ConnectedComponent(props) {
       return (
-        <ConnectedBaseComponent {...props} store={context.form} />
+        <ConnectedBaseComponent {...props} store={props.form} />
       )
     }
 
-    ConnectedComponent.contextTypes = {
+    ConnectedComponent.propTypes = {
       form: formStoreShape.isRequired
     }
 
