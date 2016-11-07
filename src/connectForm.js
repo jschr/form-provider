@@ -14,7 +14,7 @@ export default function connectForm(...args) {
     }
 
     ConnectedComponent.contextTypes = {
-      theme: formStoreShape.isRequired
+      form: formStoreShape.isRequired
     }
 
     return ConnectedComponent
