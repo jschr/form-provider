@@ -17,17 +17,19 @@ function isValidPath(path) {
 
 export default class Field extends PureComponent {
   componentWillMount() {
-    const { path, validate } = this.props
+    const { path, validate, value } = this.props
 
     if (isValidPath(path)) {
       this.setValue = this.makeValueHandler(path)
       this.subscribeToPath(path)
       this.addValidators(path, validate)
+
+      if (value) this.setValue(value)
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    const { path, validate } = this.props
+    const { path, validate, value } = this.props
 
     if (path !== nextProps.path && isValidPath(nextProps.path)) {
       this.setValue = this.makeValueHandler(nextProps.path)
@@ -37,6 +39,10 @@ export default class Field extends PureComponent {
 
       if (this.removeValidators) this.removeValidators()
       this.addValidators(path, validate)
+    }
+
+    if (value !== nextProps.value) {
+      this.setValue(nextProps.value)
     }
   }
 
@@ -99,6 +105,7 @@ Field.propTypes = {
     PropTypes.func,
     PropTypes.arrayOf(PropTypes.func)
   ]),
+  value: PropTypes.any, // eslint-disable-line react/forbid-prop-types
   children: PropTypes.func.isRequired
 }
 
