@@ -11,6 +11,9 @@ export default PropTypes.shape({
   removeSubmitListener: PropTypes.func.isRequired,
   validate: PropTypes.func.isRequired,
   submit: PropTypes.func.isRequired,
+  setValue: PropTypes.func.isRequired,
+  setValidationError: PropTypes.func.isRequired,
+  clearValidationError: PropTypes.func.isRequired,
   reset: PropTypes.func.isRequired,
   clear: PropTypes.func.isRequired,
   unsubscribe: PropTypes.func.isRequired

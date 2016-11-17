@@ -97,6 +97,18 @@ export default function formEnhancer(formReducerName) {
       return submitWithListeners(allSubmitListeners)
     }
 
+    function setValue(path, value) {
+      dispatch(actions.setValue(path, value))
+    }
+
+    function setValidationError(path, value) {
+      dispatch(actions.setValidationError(path, value))
+    }
+
+    function clearValidationError(path) {
+      dispatch(actions.clearValidationError(path))
+    }
+
     function reset() {
       dispatch(actions.setState(initialState))
     }
@@ -115,6 +127,9 @@ export default function formEnhancer(formReducerName) {
       removeSubmitListener,
       validate,
       submit,
+      setValue,
+      setValidationError,
+      clearValidationError,
       reset,
       clear,
       unsubscribe
