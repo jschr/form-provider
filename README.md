@@ -76,7 +76,7 @@ export default withForm(props => ({
 
 ## Validation
 
-This lib currently doesn't provide any validation functions out of the box, only an API to provide your own. Validation functions are simply functions that accept the current value and return a promise. Pass in a single validation function or an array to the `<Field>` component. The form won't submit until all validation functions are resolved.
+This lib currently doesn't provide any validation functions out of the box, only an API to provide your own. Validators are functions that accept the current value and return a promise. Pass in a single validator or an array to the `<Field>` component. The form won't submit until all validators are resolved.
 
 ```js
 import React from 'react'
