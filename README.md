@@ -4,12 +4,6 @@
 
 A set of React helpers to help with building forms. State is managed with a Redux store that is local to your component. This promotes keeping your [ui state separate from your global application state](https://github.com/reactjs/redux/issues/1287#issuecomment-175351978) while still being able to leverage the redux ecosystem. You can swap reducers/actions between local and global state as well as apply different store enhancers to each level of state.
 
-Check out some of these great alternatives:
-
-- [React Redux Form](https://github.com/davidkpiano/react-redux-form): Personal favourite, similar API.
-- [Redux Form](https://github.com/erikras/redux-form): More features out of the box, mature and popular.
-- [React Forms](https://github.com/prometheusresearch/react-forms): Validate with JSONSchema, no redux dependency
-
 ## Installation
 
 React 15.3.0 and Redux 3.0.0 or later are peer dependencies.
@@ -254,4 +248,11 @@ export default withForm(initialFormState, reducer, enhancer)(
 ```
 
 Check out the [login form example](examples/login) for the entire source.
+
+## Alternatives
+
+- [React Redux Form](https://github.com/davidkpiano/react-redux-form): Personal favourite, similar API.
+- [Redux Form](https://github.com/erikras/redux-form): More features out of the box, mature and popular.
+- [React Forms](https://github.com/prometheusresearch/react-forms): Validate with JSONSchema, no redux dependency
+
 
