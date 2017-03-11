@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "declaration": true,
+    "outDir": "lib",
+    "noLib": true,
+    "allowSyntheticDefaultImports": true,
+    "removeComments": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "strictNullChecks": true
+  },
+  "files": [
+    "node_modules/typescript/lib/lib.es2015.d.ts",
+    "node_modules/typescript/lib/lib.dom.d.ts",
+    "typings.d.ts",
+    "src/index.ts"
+   ]
+}
