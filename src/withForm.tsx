@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import * as React from 'react'
 import { createStore } from 'redux'
 
 import formReducer, { FormState } from './reducer'
@@ -9,12 +9,14 @@ export interface FormProps {
 }
 
 export default function withForm<P>(
-  initialState: FormState | ((props: P) => FormState),
+  initialState?: FormState | ((props: P) => FormState),
   reducer = formReducer,
   enhancer = formEnhancer()
 ) {
-  return (BaseComponent: React.ComponentClass<P & FormProps> | React.StatelessComponent<P & FormProps>) => {
-    class WrappedComponent extends PureComponent<P, {}> {
+  return function createComponent(
+    BaseComponent: React.ComponentClass<P & FormProps> | React.StatelessComponent<P & FormProps>
+  ): React.ComponentClass<P> {
+    class WrappedComponent extends React.PureComponent<P, {}> {
       public static displayName = `withForm(${BaseComponent.displayName || 'Component'})`
 
       private form: FormStore

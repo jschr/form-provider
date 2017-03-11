@@ -6,7 +6,8 @@ import {
   VALUE,
   VALIDATION_ERROR,
   CLEAR_VALIDATION_ERROR,
-  SET_STATE
+  SET_STATE,
+  INIT_STATE
 } from './constants'
 
 export interface FormState {
@@ -34,6 +35,12 @@ export default function formReducer(state = {}, action: any): FormState {
       }
 
       return newState
+
+    case SET_STATE:
+      return { ...state, ...action.payload }
+
+    case INIT_STATE:
+      return action.payload
 
     default:
       return state

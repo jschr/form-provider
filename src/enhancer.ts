@@ -25,6 +25,7 @@ export type RemoveSubmitListenerFn = () => void
 
 export interface FormStore extends Store<any> {
   getFormState: () => FormState
+  setFormState: (state: FormState) => void
   dispatch: (action: Action) => void
   addValidator: (path: objectPath.Path, fn: ValidatorFn) => RemoveValidatorFn
   removeValidator: (path: objectPath.Path, fn: ValidatorFn) => void
@@ -92,9 +93,9 @@ export default function formEnhancer(formReducerName?: string) {
     }
 
     function runValidator(validator: Validator): Promise<boolean> {
-      const value = objectPath.get(getFormState(), validator.path)
-
-      return validator.fn(value, getFormState(), validator.path)
+      const formState = getFormState()
+      const value = objectPath.get(formState, validator.path)
+      return validator.fn(value, formState, validator.path)
         .then(() => {
           dispatch(actions.clearValidationError(validator.path))
           return true
@@ -156,16 +157,21 @@ export default function formEnhancer(formReducerName?: string) {
     }
 
     function reset(): void {
-      dispatch(actions.setState(initialState))
+      dispatch(actions.initializeState(initialState))
     }
 
     function clear(): void {
-      dispatch(actions.setState({}))
+      dispatch(actions.initializeState({}))
+    }
+
+    function setFormState(state: FormState): void {
+      dispatch(actions.setState(state))
     }
 
     return {
       ...store,
       getFormState,
+      setFormState,
       dispatch,
       addValidator,
       removeValidator,

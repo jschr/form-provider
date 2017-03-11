@@ -1,4 +1,4 @@
-import { PureComponent, PropTypes, ReactElement } from 'react'
+import * as React from 'react'
 import * as objectPath from 'object-path'
 import * as invariant from 'invariant'
 import { Unsubscribe } from 'redux'
@@ -24,13 +24,13 @@ export interface RenderOpts {
   error?: Error
 }
 
-export type RenderHandler = (opts: RenderOpts) => ReactElement<any>
+export type RenderHandler = (opts: RenderOpts) => React.ReactElement<any>
 
 export interface FieldProps {
   path: objectPath.Path
-  validate: ValidatorFn | ValidatorFn[]
-  value: any
-  children: RenderHandler
+  validate?: ValidatorFn | ValidatorFn[]
+  value?: any
+  children?: RenderHandler
 }
 
 export interface FieldState {
@@ -42,18 +42,18 @@ export type ValueHandler = (value: any) => void
 
 export type RemoveValidatorsHandler = () => void
 
-export default class Field extends PureComponent<FieldProps, FieldState> {
+export default class Field extends React.PureComponent<FieldProps, FieldState> {
   private static propTypes = {
-    path: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.array
+    path: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.array
     ]).isRequired,
-    validate: PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.arrayOf(PropTypes.func)
+    validate: React.PropTypes.oneOfType([
+      React.PropTypes.func,
+      React.PropTypes.arrayOf(React.PropTypes.func)
     ]),
-    value: PropTypes.any,
-    children: PropTypes.func.isRequired
+    value: React.PropTypes.any,
+    children: React.PropTypes.func.isRequired
   }
 
   private static contextTypes = {

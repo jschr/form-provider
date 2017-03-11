@@ -4,7 +4,8 @@ import {
   VALUE,
   VALIDATION_ERROR,
   CLEAR_VALIDATION_ERROR,
-  SET_STATE
+  SET_STATE,
+  INIT_STATE
 } from './constants'
 
 export function setValue(path: objectPath.Path, value: any) {
@@ -31,6 +32,13 @@ export function clearValidationError(path: objectPath.Path) {
 export function setState(state: Object) {
   return {
     type: SET_STATE,
+    payload: state
+  }
+}
+
+export function initializeState(state: Object) {
+  return {
+    type: INIT_STATE,
     payload: state
   }
 }

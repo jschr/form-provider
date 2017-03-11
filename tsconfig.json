@@ -1,24 +1,26 @@
 {
   "compilerOptions": {
-    "jsx": "react",
     "target": "es5",
     "module": "commonjs",
+    "lib": ["es6", "dom"],
     "moduleResolution": "node",
     "sourceMap": true,
     "declaration": true,
+    "noImplicitAny": false,
     "outDir": "lib",
-    "noLib": true,
     "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "pretty": true,
     "removeComments": true,
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "strictNullChecks": true
+    "jsx": "react"
   },
-  "files": [
-    "node_modules/typescript/lib/lib.es2015.d.ts",
-    "node_modules/typescript/lib/lib.dom.d.ts",
-    "typings.d.ts",
-    "src/index.ts"
+  "include": [
+    "./typings.d.ts",
+    "./src/index.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "lib"
    ]
 }

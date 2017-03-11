@@ -7,7 +7,7 @@ import formStoreShape from './formStoreShape'
 export interface FormProviderProps {
   form: FormStore
   onSubmit: SubmitListenerFn
-  submitOnValue: boolean
+  submitOnValue?: boolean
 }
 
 export default class FormProvider extends PureComponent<FormProviderProps, void> {
