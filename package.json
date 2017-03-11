@@ -11,7 +11,8 @@
   "main": "lib/index.js",
   "scripts": {
     "lint": "tslint ./src --config ./tslint.json --project ./tsconfig.json",
-    "build": "rimraf ./lib && tsc"
+    "build": "rimraf ./lib && tsc",
+    "prepublish": "npm run lint && npm run build"
   },
   "peerDependencies": {
     "react": "^15.3.0",
