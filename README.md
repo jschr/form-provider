@@ -1,6 +1,7 @@
 # form-provider
 
 [![npm](https://img.shields.io/npm/v/form-provider.svg?style=flat-square)](https://www.npmjs.com/package/form-provider)
+[![Build Status](https://travis-ci.org/jschr/form-provider.svg?branch=master)](https://travis-ci.org/jschr/form-provider)
 
 A set of React helpers to help with building forms. State is managed with a Redux store that is local to your component. This promotes keeping your [ui state separate from your global application state](https://github.com/reactjs/redux/issues/1287#issuecomment-175351978) while still being able to use the redux ecosystem.
 
