@@ -4,6 +4,6 @@ export const isRequired = (name) => (value) => new Promise((resolve, reject) => 
 })
 
 export const isNotNumber = (name) => (value) => new Promise((resolve, reject) => {
-  if (!isNaN(value)) return reject(new Error(`${name} is must not be a number`))
+  if (!isNaN(value)) return reject(new Error(`${name} must not be a number`))
   resolve()
 })
