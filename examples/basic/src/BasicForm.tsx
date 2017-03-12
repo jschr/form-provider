@@ -23,7 +23,7 @@ function BasicForm({ form, onSubmit }) {
     <FormProvider form={form} onSubmit={onSubmit}>
       <form onSubmit={preventDefault(form.submit)}>
         <h3>Basic Form</h3>
-        <Field path='field1' validate={[isRequired('field1'), isNotNumber('field1')]}>
+        <Field path='field1' validate={[isRequired('Field1'), isNotNumber('Field1')]}>
           {({ value = '', setValue, error }) =>
             <div className={`form-group ${error ? 'has-danger' : ''}`}>
               <label className='form-control-label'>Field1*</label>
@@ -39,7 +39,7 @@ function BasicForm({ form, onSubmit }) {
           }
         </Field>
         <Field path='obj.field2'>
-          {({ value = '', setValue, error }) =>
+          {({ value = '', setValue }) =>
             <div className='form-group'>
               <label className='form-control-label'>Field2</label>
               <input

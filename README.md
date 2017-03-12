@@ -4,6 +4,9 @@
 
 A set of React helpers to help with building forms. State is managed with a Redux store that is local to your component. This promotes keeping your [ui state separate from your global application state](https://github.com/reactjs/redux/issues/1287#issuecomment-175351978) while still being able to use the redux ecosystem.
 
+Demos:
+  * [Basic Example](http://form-provider-basic-example.surge.sh/)
+
 ## Installation
 
 ```bash
@@ -30,36 +33,25 @@ function BasicForm({ form, onSubmit }) {
     <FormProvider form={form} onSubmit={onSubmit}>
       <form onSubmit={preventDefault(form.submit)}>
         <h3>Basic Form</h3>
-        <Field path='field1' validate={[isRequired('field1'), isNotNumber('field1')]}>
+        <Field path='field1' validate={[isRequired('Field1'), isNotNumber('Field1')]}>
           {({ value = '', setValue, error }) =>
-            <div className={`form-group ${error ? 'has-danger' : ''}`}>
-              <label className='form-control-label'>Field1*</label>
-              <input
-                type='text'
-                value={value}
-                onChange={target(setValue)}
-                className={`form-control ${error ? 'form-control-danger' : ''}`}
-              />
-              { error && <div className='form-control-feedback'>{ error.message }</div> }
-              <small className='form-text text-muted'>Hint: should not be a number</small>
+            <div>
+              <label>Field1*</label>
+              <input type='text' value={value} onChange={target(setValue)} />
+              { error && <div>{ error.message }</div> }
             </div>
           }
         </Field>
         <Field path='obj.field2'>
-          {({ value = '', setValue, error }) =>
-            <div className='form-group'>
-              <label className='form-control-label'>Field2</label>
-              <input
-                type='number'
-                value={value}
-                onChange={target(setValue)}
-                className='form-control'
-              />
+          {({ value = '', setValue }) =>
+            <div>
+              <label>Field2</label>
+              <input type='number' value={value} onChange={target(setValue)} />
             </div>
           }
         </Field>
-        <button type='submit' className='btn btn-primary'>Save</button>&nbsp;
-        <button type='button' onClick={form.reset} className='btn btn-secondary'>Reset</button>
+        <button type='submit'>Save</button>&nbsp;
+        <button type='button' onClick={form.reset}>Reset</button>
       </form>
     </FormProvider>
   )
