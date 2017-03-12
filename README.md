@@ -36,7 +36,7 @@ function BasicForm({ form, onSubmit }) {
       <form onSubmit={preventDefault(form.submit)}>
         <h3>Basic Form</h3>
         <Field path='field1' validate={[isRequired('Field1'), isNotNumber('Field1')]}>
-          {({ value = '', setValue, error }) =>
+          {({ value, setValue, error }) =>
             <div>
               <label>Field1*</label>
               <input type='text' value={value} onChange={target(setValue)} />
@@ -45,7 +45,7 @@ function BasicForm({ form, onSubmit }) {
           }
         </Field>
         <Field path='obj.field2'>
-          {({ value = '', setValue }) =>
+          {({ value, setValue }) =>
             <div>
               <label>Field2</label>
               <input type='number' value={value} onChange={target((newValue) => setValue(+newValue))} />
