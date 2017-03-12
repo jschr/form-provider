@@ -10,9 +10,9 @@ export interface BasicFormProps {
   onSubmit: (formState: any) => void
 }
 
-function createForm(props) {
+function createForm({ field1 }) {
   return {
-    field1: props.field1,
+    field1,
     obj: {
       field2: 4,
       field3: 10
