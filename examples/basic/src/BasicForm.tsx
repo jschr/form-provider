@@ -65,7 +65,7 @@ function BasicForm({ form, onSubmit, field2Value }) {
         <Field path='obj.field3'>
           {({ value, setValue }) =>
             <div className='form-group'>
-              <label className='form-control-label'>Field2</label>
+              <label className='form-control-label'>Field3</label>
               <input
                 type='number'
                 value={value}
