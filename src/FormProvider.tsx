@@ -1,12 +1,13 @@
 import { PureComponent, PropTypes, Children } from 'react'
+import * as invariant from 'invariant'
+
 import { FormStore, SubmitListenerFn, RemoveSubmitListenerFn } from './enhancer'
 import { FormState } from './reducer'
-
 import formStoreShape from './formStoreShape'
 
 export interface FormProviderProps {
   form: FormStore
-  onSubmit: SubmitListenerFn
+  onSubmit?: SubmitListenerFn
   submitOnValue?: boolean
 }
 
@@ -24,6 +25,12 @@ export default class FormProvider extends PureComponent<FormProviderProps, void>
 
   private removeSubmitListener: RemoveSubmitListenerFn
 
+  constructor(props, context) {
+    super(props, context)
+
+    invariant(props.form, 'FormProvider is missing the "form" prop.')
+  }
+
   public render() {
     const { children } = this.props
 
@@ -39,7 +46,9 @@ export default class FormProvider extends PureComponent<FormProviderProps, void>
   private componentWillMount() {
     const { form, onSubmit, submitOnValue } = this.props
 
-    this.removeSubmitListener = form.addSubmitListener(onSubmit, submitOnValue)
+    if (onSubmit) {
+      this.removeSubmitListener = form.addSubmitListener(onSubmit, submitOnValue)
+    }
   }
 
   private componentWillUnmount() {
