@@ -1,6 +1,6 @@
 {
   "name": "form-provider",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "React helpers for building forms.",
   "author": "Jordan Schroter",
   "license": "MIT",
@@ -9,6 +9,7 @@
     "url": "https://github.com/jschr/form-provider"
   },
   "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
   "scripts": {
     "lint": "tslint ./src --config ./tslint.json --project ./tsconfig.json",
     "build": "rimraf ./lib && tsc",
