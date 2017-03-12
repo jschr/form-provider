@@ -19,17 +19,6 @@ export {
 } from './constants'
 
 export {
-  default as createFormEnhancer,
-  ValidatorFn,
-  Validator,
-  SubmitListenerFn,
-  SubmitListener,
-  RemoveValidatorFn,
-  RemoveSubmitListenerFn,
-  FormStore
-} from './enhancer'
-
-export {
   default as Field,
   RenderOpts,
   RenderHandler,
@@ -40,16 +29,27 @@ export {
 } from './Field'
 
 export {
+  default as createFormEnhancer,
+  ValidatorFn,
+  Validator,
+  SubmitListenerFn,
+  SubmitListener,
+  RemoveValidatorFn,
+  RemoveSubmitListenerFn,
+  FormStore
+} from './formEnhancer'
+
+export {
   default as FormProvider,
   FormProviderProps
 } from './FormProvider'
 
-export { default as formStoreShape } from './formStoreShape'
-
 export {
   default as formReducer,
   FormState
-} from './reducer'
+} from './formReducer'
+
+export { default as formStoreShape } from './formStoreShape'
 
 export {
   default as withForm,
