@@ -1,8 +1,8 @@
 import { PureComponent, PropTypes, Children } from 'react'
 import * as invariant from 'invariant'
 
-import { FormStore, SubmitListenerFn, RemoveSubmitListenerFn } from './enhancer'
-import { FormState } from './reducer'
+import { FormStore, SubmitListenerFn, RemoveSubmitListenerFn } from './formEnhancer'
+import { FormState } from './formReducer'
 import formStoreShape from './formStoreShape'
 
 export interface FormProviderProps {

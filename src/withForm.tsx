@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { createStore } from 'redux'
 
-import formReducer, { FormState } from './reducer'
-import formEnhancer, { FormStore } from './enhancer'
+import formReducer, { FormState } from './formReducer'
+import formEnhancer, { FormStore } from './formEnhancer'
 
 export interface FormProps {
   form: FormStore

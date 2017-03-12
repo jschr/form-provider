@@ -3,7 +3,7 @@ import { Action, Store, Unsubscribe } from 'redux'
 
 import { VALUE } from './constants'
 import * as actions from './actions'
-import { FormState } from './reducer'
+import { FormState } from './formReducer'
 
 export type ValidatorFn = (value: any, formState: FormState, path: objectPath.Path) => Promise<any>
 

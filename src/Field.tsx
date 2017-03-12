@@ -5,8 +5,8 @@ import { Unsubscribe } from 'redux'
 
 import formStoreShape from './formStoreShape'
 import * as actions from './actions'
-import { FormStore, ValidatorFn } from './enhancer'
-import { FormState } from './reducer'
+import { FormStore, ValidatorFn } from './formEnhancer'
+import { FormState } from './formReducer'
 
 function isValidPath(path: objectPath.Path) {
   invariant(typeof path === 'string' || Array.isArray(path),
