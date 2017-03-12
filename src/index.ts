@@ -47,7 +47,7 @@ export {
 export { default as formStoreShape } from './formStoreShape'
 
 export {
-  default as fromReducer,
+  default as formReducer,
   FormState
 } from './reducer'
 
