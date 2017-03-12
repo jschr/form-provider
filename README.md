@@ -47,7 +47,7 @@ function BasicForm({ form, onSubmit }) {
           {({ value = '', setValue }) =>
             <div>
               <label>Field2</label>
-              <input type='number' value={value} onChange={target(setValue)} />
+              <input type='number' value={value} onChange={target((newValue) => setValue(+newValue))} />
             </div>
           }
         </Field>
