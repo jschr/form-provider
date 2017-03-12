@@ -1,48 +1,71 @@
-# react-redux-form-provider
+# form-provider
 
-[![npm](https://img.shields.io/npm/v/react-redux-form-provider.svg?style=flat-square)](https://www.npmjs.com/package/react-redux-form-provider)
+[![npm](https://img.shields.io/npm/v/form-provider.svg?style=flat-square)](https://www.npmjs.com/package/form-provider)
 
-A set of React helpers to help with building forms. State is managed with a Redux store that is local to your component. This promotes keeping your [ui state separate from your global application state](https://github.com/reactjs/redux/issues/1287#issuecomment-175351978) while still being able to leverage the redux ecosystem. You can swap reducers/actions between local and global state as well as apply different store enhancers to each level of state.
+A set of React helpers to help with building forms. State is managed with a Redux store that is local to your component. This promotes keeping your [ui state separate from your global application state](https://github.com/reactjs/redux/issues/1287#issuecomment-175351978) while still being able to use the redux ecosystem.
 
 ## Installation
 
-React 15.3.0 and Redux 3.0.0 or later are peer dependencies.
-
-```
-npm install --save react-redux-form-provider
+```bash
+npm install --save react react-dom redux react-redux # peer dependencies
+npm install --save form-provider
 ```
 
 ## Basic Usage
 
 ```js
-import React from 'react'
-import { withForm, FormProvider, Field } from 'react-redux-form-provider'
+// BasicForm.js
 
-function BasicForm({ form, onUser }) {
+function createForm(props) {
+  return {
+    field1: props.field1,
+    obj: {
+      field2: 4
+    }
+  }
+}
+
+function BasicForm({ form, onSubmit }) {
   return (
-    <FormProvider form={form} onSubmit={formState => onUser(formState.user)}>
+    <FormProvider form={form} onSubmit={onSubmit}>
       <form onSubmit={preventDefault(form.submit)}>
-        <Field path="user.firstName">
-          { ({ value = '', setValue }) =>
-            <div>
-              <label>First Name</label>
-              <input type="text" value={value} onChange={e => setValue(e.target.value)} />
+        <h3>Basic Form</h3>
+        <Field path='field1' validate={[isRequired('field1'), isNotNumber('field1')]}>
+          {({ value = '', setValue, error }) =>
+            <div className={`form-group ${error ? 'has-danger' : ''}`}>
+              <label className='form-control-label'>Field1*</label>
+              <input
+                type='text'
+                value={value}
+                onChange={target(setValue)}
+                className={`form-control ${error ? 'form-control-danger' : ''}`}
+              />
+              { error && <div className='form-control-feedback'>{ error.message }</div> }
+              <small className='form-text text-muted'>Hint: should not be a number</small>
             </div>
           }
         </Field>
-        ...
-        <button type="submit">Save</button>
+        <Field path='obj.field2'>
+          {({ value = '', setValue, error }) =>
+            <div className='form-group'>
+              <label className='form-control-label'>Field2</label>
+              <input
+                type='number'
+                value={value}
+                onChange={target(setValue)}
+                className='form-control'
+              />
+            </div>
+          }
+        </Field>
+        <button type='submit' className='btn btn-primary'>Save</button>&nbsp;
+        <button type='button' onClick={form.reset} className='btn btn-secondary'>Reset</button>
       </form>
     </FormProvider>
   )
 }
 
-const preventDefault = next => e => {
-  e.preventDefault()
-  next()
-}
-
-export default withForm()(BasicForm)
+export default withForm(createForm)(BasicForm)
 
 ```
 
@@ -73,55 +96,25 @@ export default withForm(props => ({
 This lib currently doesn't provide any validation functions out of the box, only an API to provide your own. Validators are functions that accept the current value and return a promise. Pass in a single validator or an array to the `<Field>` component. The form won't submit until all validators are resolved.
 
 ```js
-import React from 'react'
-import { withForm, FormProvider, Field } from 'react-redux-form-provider'
-import { isEmail } from 'validator'
+// validators.js
 
-const required = (value) => new Promise((resolve, reject) => {
-  if (value) { resolve() }
-  else { reject(new Error('Invalid Email')) }
+export const isRequired = (name) => (value) => new Promise((resolve, reject) => {
+  if (!value) return reject(new Error(`${name} is required`))
+  resolve()
 })
 
-const email = (value) => new Promise((resolve, reject) => {
-  if (isEmail(value)) { resolve() }
-  else { reject(new Error('Invalid Email')) }
+export const isNotNumber = (name) => (value) => new Promise((resolve, reject) => {
+  if (!isNaN(value)) return reject(new Error(`${name} is must not be a number`))
+  resolve()
 })
 
-function BasicForm({ form, onSubmit }) {
-  return (
-    <FormProvider store={form} onSubmit={onSubmit}>
-      <form onSubmit={preventDefault(form.submit)}>
-        <Field path="user.firstName" validate={required}>
-          { ({ value = '', setValue, error }) =>
-            <div>
-              <label>First Name</label>
-              <input type="text" value={value} onChange={e => setValue(e.target.value)} />
-              { error && error.message }
-            </div>
-          }
-        </Field>
-        <Field path="user.firstName" validate={[ required, email ]}>
-          ...
-        </Field>
-        <button type="submit">Save</button>
-      </form>
-    </FormProvider>
-  )
-}
-
-export default withForm()(BasicForm)
 ```
-
-Check out the [basic form example](examples/basic) for the entire source.
 
 ## Binding to form state
 
-Use the `connectForm` function to map form state to props. This function has the exact same API as react-redux's `connect` function.
+Use the `connectForm` function to map form state to props. This function has the exact same API as react-redux's `connect` function. You can use this to conditionally display fields or other rendering logic based on the current form's state.
 
  ```js
-import React from 'react'
-import { withForm, connectForm, FormProvider, Field } from 'react-redux-form-provider'
-
 function mapFormStateToProps(formState) {
   return {
     userFormState: formState.user,
@@ -133,121 +126,12 @@ function BasicForm({ userFormState, allErrors, form, onSubmit }) {
   ...
 })
 
-export default withForm()(
-  connectForm(mapFormStateToProps)(withForm)
-)
+export default compose(
+  withForm(createForm)
+  connectForm(mapFormStateToProps)
+)(withForm)
 
 ```
-
-## Advanced usage
-You can provide your own reducer and enhancer to `withForm`, which will be used to create the form's store. This allows you to reuse reducers and bind actions to local component state. You can also separate store enhancers depending on the level of state. A good use case for this is persisting and/or batching global state updates without affecting local state.
-
-Don't forget to manually apply the default form reducer and enhancer.
-
-```js
-import React, { PureComponent } from 'react'
-import { combineReducers, bindActionCreators, applyMiddleware, compose } from 'redux'
-import thunk from 'redux-thunk'
-import {
-  withForm,
-  connectForm,
-  FormProvider,
-  Field,
-  reducer as formReducer,
-  enhancer as formEnhancer
-} from 'react-redux-form-provider'
-
-import loginReducer from '../reducers/login'
-import * as loginActions from '../actions/login'
-import { preventDefault, targetValue } from '../helpers'
-import { required, email } from '../validators'
-
-class LoginForm extends PureComponent {
-  handleSubmit = (formState) => {
-    const { attemptLogin, onAuthToken, onUser } = this.props
-    const { email, password } = formState
-
-    attemptLogin(email, password)
-      .then(({ token, profile }) => {
-        onAuthToken(token)
-        onUser(profile)
-      })
-  }
-
-  render() {
-    const { form, loginPending, loginError } = this.props
-
-    return (
-      <FormProvider store={form} onSubmit={this.handleSubmit}>
-        <form onSubmit={preventDefault(form.submit)}>
-          <Field path="email" validate={[ required, email ]}>
-            { ({ value = '', setValue, error }) =>
-              <div>
-                <label>Email { error && <div className="error">{ error.message }</div> }</label>
-                <input type="text" value={value} onChange={targetValue(setValue)} />
-              </div>
-            }
-          </Field>
-          <Field path="password" validate={required}>
-            { ({ value = '', setValue, error }) =>
-              <div>
-                <label>Password { error && <div className="error">{ error.message }</div> }</label>
-                <input type="password" value={value} onChange={targetValue(setValue)} />
-              </div>
-            }
-          </Field>
-          { loginError &&
-            <div className="error">{ loginError.message }</div>
-          }
-          <button type="submit" disabled={loginPending}>
-            { loginPending ? 'Logging in...' : 'Login' }
-          </button>
-        </form>
-      </FormProvider>
-    )
-  }
-}
-
-const initialFormState = {
-  // initial form state should reflect your combineReducers structure
-  form: {},
-  login: {
-    error: null,
-    pending: false
-  }
-}
-
-const reducer = combineReducers({
-  form: formReducer,
-  login: loginReducer
-})
-
-const enhancer = compose(
-  applyMiddleware(thunk),
-  // provide the key in state where form state exists (defined in combineReducers)
-  formEnhancer('form')
-)
-
-function mapFormStateToProps(state) {
-  return {
-    loginPending: state.login.pending,
-    loginError: state.login.error
-  }
-}
-
-function mapFormDispatchToProps(dispatch) {
-  return {
-    ...bindActionCreators(loginActions, dispatch)
-  }
-}
-
-export default withForm(initialFormState, reducer, enhancer)(
-  connectForm(mapFormStateToProps, mapFormDispatchToProps)(LoginForm)
-)
-
-```
-
-Check out the [login form example](examples/login) for the entire source.
 
 ## Alternatives
 

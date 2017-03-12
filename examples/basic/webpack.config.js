@@ -1,31 +1,35 @@
-// modified from https://github.com/reactjs/redux/tree/master/examples
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-var path = require('path')
-var webpack = require('webpack')
+const tsCompilerOptions = require('../../tsconfig.json').compilerOptions
+
+tsCompilerOptions.declaration = false
 
 module.exports = {
-  devtool: 'cheap-module-eval-source-map',
-  entry: [
-    'webpack-hot-middleware/client',
-    './index'
-  ],
+  devtool: 'source-map',
+  entry: './src/index.tsx',
   output: {
-    path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
-    publicPath: '/static/'
+    path: '/dist'
   },
-  plugins: [
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin()
-  ],
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js']
+  },
   module: {
     loaders: [
       {
-        test: /\.js$/,
-        loaders: [ 'babel' ],
-        exclude: /node_modules/,
-        include: __dirname
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
+        options: {
+          transpileOnly: true,
+          compilerOptions: tsCompilerOptions
+        }
       }
     ]
-  }
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: 'index.html',
+      inject: true
+    })
+  ]
 }

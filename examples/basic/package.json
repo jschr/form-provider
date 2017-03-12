@@ -1,28 +1,25 @@
 {
-  "name": "redux-local-form-basic-example",
-  "version": "0.0.0",
-  "description": "redux-local-form basic example",
-  "scripts": {
-    "start": "node server.js"
-  },
+  "name": "form-provider-basic-example",
+  "version": "1.0.0",
   "license": "MIT",
+  "scripts": {
+    "start": "webpack-dev-server"
+  },
   "dependencies": {
-    "react": "^15.3.0",
-    "react-dom": "^15.3.0",
-    "react-redux-local-form": "^0.1.2",
-    "validator": "^5.5.0"
+    "form-provider": "file:../../",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-redux": "^5.0.3",
+    "redux": "^3.6.0"
   },
   "devDependencies": {
-    "babel-core": "^6.3.15",
-    "babel-loader": "^6.2.0",
-    "babel-preset-es2015": "^6.3.13",
-    "babel-preset-react": "^6.3.13",
-    "babel-preset-react-hmre": "^1.1.1",
-    "babel-register": "^6.3.13",
-    "cross-env": "^1.0.7",
-    "express": "^4.13.3",
-    "webpack": "^1.9.11",
-    "webpack-dev-middleware": "^1.2.0",
-    "webpack-hot-middleware": "^2.9.1"
+    "@types/react": "^15.0.16",
+    "@types/react-dom": "^0.14.23",
+    "html-webpack-plugin": "^2.28.0",
+    "source-map-support": "^0.4.11",
+    "ts-loader": "^2.0.1",
+    "typescript": "^2.2.1",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.4.1"
   }
 }
