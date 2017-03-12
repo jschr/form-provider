@@ -19,6 +19,7 @@ npm install --save form-provider
 
 ```js
 // BasicForm.js
+import { withForm, FormProvider, Field } from 'form-provider'
 
 function createForm(props) {
   return {
@@ -107,7 +108,10 @@ export const isNotNumber = (name) => (value) => new Promise((resolve, reject) =>
 
 Use the `connectForm` function to map form state to props. This function has the exact same API as react-redux's `connect` function. You can use this to conditionally display fields or other rendering logic based on the current form's state.
 
- ```js
+```js
+import { compose } from 'redux'
+import { withForm, FormProvider, Field, connectForm } from 'form-provider'
+
 function mapFormStateToProps(formState) {
   return {
     userFormState: formState.user,
