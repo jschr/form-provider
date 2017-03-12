@@ -20,9 +20,9 @@ function createForm(props) {
   }
 }
 
-function mapFormStateProps(props) {
+function mapFormStateToProps(formState) {
   return {
-    field2Value: props.obj.field2
+    field2Value: formState.obj.field2
   }
 }
 
@@ -87,5 +87,5 @@ function BasicForm({ form, onSubmit, field2Value }) {
 
 export default compose(
   withForm<BasicFormProps>(createForm),
-  connectForm(mapFormStateProps)
+  connectForm(mapFormStateToProps)
 )(BasicForm)
