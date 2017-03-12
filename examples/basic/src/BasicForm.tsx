@@ -73,7 +73,7 @@ function BasicForm({ form, onSubmit, field2Value }) {
                 disabled={field2Value < 10}
                 className='form-control'
               />
-              <small className='form-text text-muted'>Hint: enabled with Field2 > 10</small>
+              <small className='form-text text-muted'>Hint: enabled when Field2 > 10</small>
             </div>
           }
         </Field>
