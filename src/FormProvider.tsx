@@ -37,13 +37,13 @@ export default class FormProvider extends PureComponent<FormProviderProps, void>
     return Children.only(children)
   }
 
-  private getChildContext() {
+  public getChildContext() {
     const { form } = this.props
 
     return { form }
   }
 
-  private componentWillMount() {
+  public componentWillMount() {
     const { form, onSubmit, submitOnValue } = this.props
 
     if (onSubmit) {
@@ -51,7 +51,7 @@ export default class FormProvider extends PureComponent<FormProviderProps, void>
     }
   }
 
-  private componentWillUnmount() {
+  public componentWillUnmount() {
     if (this.removeSubmitListener) this.removeSubmitListener()
   }
 }

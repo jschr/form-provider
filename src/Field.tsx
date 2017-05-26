@@ -75,7 +75,7 @@ export default class Field extends React.PureComponent<FieldProps, FieldState> {
     return children({ value, error, setValue: this.setValue })
   }
 
-  private componentWillMount() {
+  public componentWillMount() {
     const { path, validate, value } = this.props
 
     if (isValidPath(path)) {
@@ -87,7 +87,7 @@ export default class Field extends React.PureComponent<FieldProps, FieldState> {
     }
   }
 
-  private componentWillReceiveProps(nextProps: FieldProps) {
+  public componentWillReceiveProps(nextProps: FieldProps) {
     const { path, validate, value } = this.props
 
     if (path !== nextProps.path && isValidPath(nextProps.path)) {
@@ -105,7 +105,7 @@ export default class Field extends React.PureComponent<FieldProps, FieldState> {
     }
   }
 
-  private componentWillUnmount() {
+  public componentWillUnmount() {
     if (this.unsubscribe) this.unsubscribe()
   }
 
