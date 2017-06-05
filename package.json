@@ -1,6 +1,6 @@
 {
   "name": "form-provider",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "React helpers for building forms.",
   "author": "Jordan Schroter",
   "license": "MIT",
@@ -30,10 +30,10 @@
   "devDependencies": {
     "@types/enzyme": "^2.7.5",
     "@types/expect": "^1.20.0",
+    "@types/react-redux": "^4.4.42",
     "@types/invariant": "^2.2.28",
     "@types/jsdom": "^2.0.30",
     "@types/mocha": "^2.2.40",
-    "@types/react-redux": "^4.4.37",
     "cross-env": "^3.1.4",
     "enzyme": "^2.7.1",
     "expect": "^1.20.2",
