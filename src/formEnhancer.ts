@@ -12,7 +12,7 @@ export interface Validator {
   fn: ValidatorFn
 }
 
-export type SubmitListenerFn = (formState: FormState) => Promise<any>
+export type SubmitListenerFn = (formState: FormState) => any
 
 export interface SubmitListener {
   listener: SubmitListenerFn
