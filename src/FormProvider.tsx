@@ -11,7 +11,7 @@ export interface FormProviderProps {
   submitOnValue?: boolean
 }
 
-export default class FormProvider extends PureComponent<FormProviderProps, void> {
+export default class FormProvider extends PureComponent<FormProviderProps, {}> {
   private static propTypes = {
     form: formStoreShape.isRequired,
     submitOnValue: PropTypes.bool,

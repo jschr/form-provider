@@ -1,6 +1,6 @@
 {
   "name": "form-provider",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "React helpers for building forms.",
   "author": "Jordan Schroter",
   "license": "MIT",
