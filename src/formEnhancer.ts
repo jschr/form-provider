@@ -26,7 +26,7 @@ export type RemoveSubmitListenerFn = () => void
 export interface FormStore extends Store<any> {
   getFormState: () => FormState
   setFormState: (state: FormState) => void
-  dispatch: (action: Action) => void
+  dispatch: (action: Action) => any
   addValidator: (path: objectPath.Path, fn: ValidatorFn) => RemoveValidatorFn
   removeValidator: (path: objectPath.Path, fn: ValidatorFn) => void
   addSubmitListener: (listener: SubmitListenerFn, submitOnValue: boolean) => RemoveSubmitListenerFn
@@ -92,37 +92,33 @@ export default function formEnhancer(formReducerName?: string) {
       store.dispatch(action)
     }
 
-    function runValidator(validator: Validator): Promise<boolean> {
+    async function runValidator(validator: Validator): Promise<boolean> {
       const formState = getFormState()
       const value = objectPath.get(formState, validator.path)
-      return validator.fn(value, formState, validator.path)
-        .then(() => {
-          dispatch(actions.clearValidationError(validator.path))
-          return true
-        })
-        .catch((err) => {
-          dispatch(actions.setValidationError(validator.path, err))
-          return false
-        })
+
+      try {
+        await validator.fn(value, formState, validator.path)
+        dispatch(actions.clearValidationError(validator.path))
+        return true
+      } catch (err) {
+        dispatch(actions.setValidationError(validator.path, err))
+        return false
+      }
     }
 
-    function validate(): Promise<boolean> {
-      return Promise.all(validators.map(runValidator))
-        .then((results) => {
-          return results.every((isValid) => isValid)
-        })
+    async function validate(): Promise<boolean> {
+      const results = await Promise.all(validators.map(runValidator))
+      return results.every((isValid) => isValid)
     }
 
-    function submitWithListeners(listeners: SubmitListenerFn[]): Promise<void> {
-      if (listeners.length === 0) return Promise.resolve()
+    async function submitWithListeners(listeners: SubmitListenerFn[]): Promise<void> {
+      if (listeners.length === 0) return
 
-      return validate().then((isValid) => {
-        if (!isValid) return
+      const isValid = await validate()
+      if (!isValid) return
 
-        const state = getFormState()
-
-        listeners.forEach((listener) => listener(state))
-      })
+      const state = getFormState()
+      listeners.forEach((listener) => listener(state))
     }
 
     const unsubscribe = store.subscribe(() => {
