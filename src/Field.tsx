@@ -1,4 +1,5 @@
 import * as React from 'react'
+import * as PropTypes from 'prop-types'
 import * as objectPath from 'object-path'
 import * as invariant from 'invariant'
 import { Unsubscribe } from 'redux'
@@ -44,16 +45,16 @@ export type RemoveValidatorsHandler = () => void
 
 export default class Field extends React.PureComponent<FieldProps, FieldState> {
   private static propTypes = {
-    path: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.array
+    path: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.array
     ]).isRequired,
-    validate: React.PropTypes.oneOfType([
-      React.PropTypes.func,
-      React.PropTypes.arrayOf(React.PropTypes.func)
+    validate: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.arrayOf(PropTypes.func)
     ]),
-    value: React.PropTypes.any,
-    children: React.PropTypes.func.isRequired
+    value: PropTypes.any,
+    children: PropTypes.func.isRequired
   }
 
   private static contextTypes = {
