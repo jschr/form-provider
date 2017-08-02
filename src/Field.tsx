@@ -95,10 +95,12 @@ export default class Field extends React.PureComponent<FieldProps, FieldState> {
       this.setValue = this.makeValueHandler(nextProps.path)
 
       if (this.unsubscribe) this.unsubscribe()
-      this.subscribeToPath(path)
+      this.subscribeToPath(nextProps.path)
+    }
 
+    if (validate !== nextProps.validate) {
       if (this.removeValidators) this.removeValidators()
-      this.addValidators(path, validate)
+      this.addValidators(nextProps.path, nextProps.validate)
     }
 
     if (value !== nextProps.value) {
